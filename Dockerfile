@@ -1,109 +1,98 @@
-
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 
-# install deps
-RUN apt-get update && \
-    apt-get install -y \
-    sudo \
-    devscripts \
-    debhelper \
-    libjson-perl \
-    libipc-sharelite-perl \
-    libgd-perl \
-    git \
-    build-essential \
-    python \
-    zlib1g-dev \
-    clang \
-    make \
-    pkg-config \
-    curl \
-    libmapnik3.0 \
-    libmapnik-dev \
-    mapnik-utils \
-    python-mapnik python3-mapnik \
-    unifont \
-    letsencrypt \
-    wget \
-    python3-certbot \
-    python3-certbot-apache \
-    openssh-server \
-    postgresql postgresql-10-postgis-2.4 \
-    apache2 autoconf apache2-dev \
-    cmake libbz2-dev libgeos-dev libpq-dev libproj-dev lua5.3 liblua5.3-dev \
-    rsyslog nano \
-    gdal-bin \
-    screen \
-    pyhgtmap \
-    python-setuptools python3-matplotlib python-beautifulsoup python3-numpy python3-bs4 python3-gdal python-gdal
+# Basis-Installation
+RUN apt-get update && apt-get install -y \
+    sudo git curl wget nano screen rsyslog \
+    build-essential clang make cmake pkg-config autoconf debhelper devscripts \
+    zlib1g-dev libbz2-dev libgeos-dev libpq-dev libproj-dev \
+    libjson-perl libipc-sharelite-perl libgd-perl \
+    python3 python3-pip python3-setuptools python3-mapnik \
+    python3-numpy python3-gdal python3-matplotlib python3-bs4 \
+    apache2 apache2-dev \
+    postgresql postgis postgresql-contrib \
+    libmapnik3.1 libmapnik-dev mapnik-utils \
+    lua5.3 liblua5.3-dev \
+    gdal-bin unifont locales
 
-# install locale so that postgres db is created with utf-8
-RUN apt-get install --yes locales && \
-    locale-gen --no-purge en_US.UTF-8 && \
-    update-locale LANG=en_US.UTF-8  && \
-    echo locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8 | debconf-set-selections  && \
-    echo locales locales/default_environment_locale select en_US.UTF-8 | debconf-set-selections  && \
-    dpkg-reconfigure locales
+# Lokalisierung / UTF-8
+RUN locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8
 
-# install tirex (at commit 9c52ce1 which was in March 2020)
+# Certbot (per Snap)
+#RUN apt-get install -y snapd && \
+#    snap install core && snap refresh core && \
+#    snap install --classic certbot && \
+#    ln -s /snap/bin/certbot /usr/bin/certbot
+
+# tirex (z. B. Version 0.6.1)
+#RUN apt-get install -y tirex
+#RUN apt-get update && apt-get install -y devscripts
 RUN git clone https://github.com/geofabrik/tirex /home/tirex && \
     cd /home/tirex && git checkout 9c52ce1 && make && make deb && cd /home && \
     dpkg -i tirex-core_0.6.1_amd64.deb && \
     dpkg -i tirex-backend-mapnik_0.6.1_amd64.deb && \
     dpkg -i tirex-syncd_0.6.1_amd64.deb
 
-# install apache & mod_tile (at commit fd5988f)
-RUN git clone https://github.com/openstreetmap/mod_tile.git /home/mod_tile && \
-    cd /home/mod_tile && git checkout fd5988f && echo '/etc/renderd.conf' > debian/renderd.conffiles && debuild -i -b -us -uc && \
-    dpkg -i /home/libapache2-mod-tile_0.4-12~precise2_amd64.deb && \
-    mkdir /mnt/tiles && rm -rf /var/lib/tirex/tiles && rm -rf /var/lib/mod_tile && ln -s /mnt/tiles /var/lib/tirex/tiles && ln -s /mnt/tiles /var/lib/mod_tile
+# mod_tile (z. B. Version 0.4)
+RUN apt-get install -y libapache2-mod-tile renderd
+#RUN apt-get install -y devscripts debhelper build-essential dh-autoreconf
+#RUN git clone https://github.com/openstreetmap/mod_tile.git /home/mod_tile && \
+#    cd /home/mod_tile && \
+#    echo '/etc/renderd.conf' > debian/renderd.conffiles && \
+#    debuild -i -b -us -uc && \
+#    dpkg -i /home/libapache2-mod-tile_0.4-12~precise2_amd64.deb && \
+RUN   mkdir /mnt/tiles && rm -rf /var/lib/tirex/tiles && rm -rf /var/lib/mod_tile && ln -s /mnt/tiles /var/lib/tirex/tiles && ln -s /mnt/tiles /var/lib/mod_tile
 
-# install stuff for letsencrypt
-# This is not supported anymore. Deactivating for now.
-# RUN cd /usr/local/bin && wget https://dl.eff.org/certbot-auto && chmod a+x certbot-auto
 
-# Install osm2pgsql from source (at commit 7892613)
-RUN	mkdir ~/osm2pgsql && cd ~/osm2pgsql && \
-	git clone https://github.com/openstreetmap/osm2pgsql.git && \
-	cd osm2pgsql && git checkout 7892613 && \
-	mkdir build && cd build && \
-	cmake .. && \
-	make && \
-	make install && \
-	rm -rf osm2pgsql
 
+# osm2pgsql (aus Source)
+RUN apt-get install -y osm2pgsql
+#RUN mkdir ~/osm2pgsql && cd ~/osm2pgsql && \
+#    git clone https://github.com/openstreetmap/osm2pgsql.git && \
+#    cd osm2pgsql && \
+#    mkdir build && cd build && \
+#    cmake .. && make && make install && \
+#    rm -rf ~/osm2pgsql
+
+
+# tirex-example-map installieren, falls vorhanden
+#RUN dpkg -i /home/tirex-example-map_0.6.1_amd64.deb || true
+
+# pyhgtmap
+RUN pip3 install pyhgtmap
+RUN pip3 install class_registry==2.1.1
 
 RUN dpkg -i /home/tirex-example-map_0.6.1_amd64.deb
 
-# install phyghtmap
-RUN wget http://katze.tfiu.de/projects/phyghtmap/phyghtmap_2.21-1_all.deb && \
-    dpkg -i phyghtmap_2.21-1_all.deb
+# nik4
+RUN wget -O /usr/local/bin/nik4.py https://raw.githubusercontent.com/Zverik/Nik4/master/nik4.py && \
+    chmod 755 /usr/local/bin/nik4.py
 
-# set python3 to be the default
-RUN echo "alias python=python3" >>~/.bashrc
-
-# install python-downloader & oogle drive downloader
-RUN apt-get install -y python3-pip && pip3 install gdown
-
-# install nik4.py
-RUN wget -O /usr/local/bin/nik4.py https://raw.githubusercontent.com/Zverik/Nik4/master/nik4.py && chmod 755 /usr/local/bin/nik4.py
-
-# copy assets
+# Projekt-Assets kopieren
 COPY assets /
 
-# enable apache modules (depends on copied assets)
-RUN a2dismod mpm_event && a2enmod mpm_prefork headers tile proxy proxy_http proxy_balancer ssl rewrite
+# Apache-Module aktivieren
+RUN a2dismod mpm_event && \
+    a2enmod mpm_prefork headers tile proxy proxy_http proxy_balancer ssl rewrite
+    
 
-ENV LC_ALL=en_US.UTF-8
+
+
+# Umgebungsvariablen
 ENV LETSENCRYPT=0
 ENV EMAIL=admin@localserver.net
 ENV DOMAIN=otm-docker.example.io
 ENV WHITELIST=127.0.0.1
 ENV MOD_TILE_PREVENT_EXPIRATION=0
 
-# start anything
+# Ports freigeben
 EXPOSE 80
 EXPOSE 443
+
+# Start-Skript
 ENTRYPOINT ["/usr/local/bin/startup.sh"]
+
