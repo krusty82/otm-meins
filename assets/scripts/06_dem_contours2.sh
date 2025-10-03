@@ -6,5 +6,5 @@ cd /mnt/data/srtm
 createdb contours -O tirex
 psql -d contours -c 'CREATE EXTENSION postgis;'
 psql -d contours -c 'GRANT SELECT ON ALL TABLES IN SCHEMA public TO tirex;'
-osm2pgsql --slim -d contours --cache 5000 --style /home/otm/db/contours.style contour*.pbf
+osm2pgsql --slim -d contours --cache 5000 --style /home/otm/db/contours.style *.pbf
 psql -d contours -c 'GRANT SELECT ON ALL TABLES IN SCHEMA public TO tirex;'
