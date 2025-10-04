@@ -46,7 +46,6 @@
 	</Datasource>
 </Layer>
 
-#Relief auch bei höherem Zoom
 <Style name="relief-150">
 	<Rule>
 		&maxscale_zoom9;
