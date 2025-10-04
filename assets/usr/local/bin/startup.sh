@@ -1,11 +1,11 @@
 #!/bin/sh
 set -e
 
-if [ ! -d "/var/lib/postgresql/10/main" ]; then
-  pg_dropcluster 10 main
+if [ ! -d "/var/lib/postgresql/14/main" ]; then
+  pg_dropcluster 14 main
   mkdir -p /var/lib/postgresql
   chown -R postgres /var/lib/postgresql
-  pg_createcluster 10 main
+  pg_createcluster 14 main
 
   /etc/init.d/postgresql start
 fi
