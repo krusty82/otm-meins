@@ -35,7 +35,7 @@ sudo -u tirex tirex-master start
 
 sed -i 's/$SERVER_NAME/'"$DOMAIN"'/g' /etc/apache2/sites-available/tileserver_site.conf
 sed -i 's/$WHITELIST/'"$WHITELIST"'/g' /etc/apache2/sites-available/tileserver_site.conf
-sed -i 's/$DOMAIN/'"$DOMAIN"'/g' /var/www/mapdemo/index.html
+sed -i 's/$DOMAIN/'"$DOMAIN"'/g' /var/www/index.html
 a2ensite tileserver_site.conf
 
 if [ "$LETSENCRYPT" = "1" ]; then
