@@ -54,7 +54,7 @@
 	</Rule>
 </Style>
 <Layer name="relief-150">
-	<StyleName>relief-500</StyleName>
+	<StyleName>relief-150</StyleName>
 	<Datasource>
 		<Parameter name="type">gdal</Parameter>
 		<Parameter name="file">/mnt/data/srtm/relief-150.tif</Parameter>
