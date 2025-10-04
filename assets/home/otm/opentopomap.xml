@@ -778,7 +778,7 @@
         <StyleName>text-towns</StyleName>
         <StyleName>text-villages</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,admin_level,name,capital,'('&#124;&#124;substring(ele from '^[\d]+')&#124;&#124;')' as
+            <Parameter name="table">(SELECT way,admin_level,get_latin_name(name,"name:de",int_name,"name:en") as name,capital,'('&#124;&#124;substring(ele from '^[\d]+')&#124;&#124;')' as
                 ele,place,population::INTEGER FROM planet_osm_point WHERE (population IS NULL OR population SIMILAR TO '[[:digit:]]+') AND place IN
                 ('city','town','village','suburb','hamlet','isolated_dwelling','locality') ORDER BY (CASE WHEN place='city' THEN 0 WHEN place='town'
                 THEN 1 WHEN place='village' THEN 2 ELSE 3 END) ASC, (CASE WHEN population IS NUll THEN 0 WHEN population similar to '[[:digit:]]+'
