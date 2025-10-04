@@ -354,7 +354,7 @@
     <Layer name="borders">
         <StyleName>borders</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,boundary,admin_level,name FROM planet_osm_line WHERE boundary IN ('administrative')) AS borders
+            <Parameter name="table">(SELECT way,boundary,admin_level,get_localized_placename(name,"name:de",int_name,"name:en",true) as name FROM planet_osm_line WHERE boundary IN ('administrative')) AS borders
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
@@ -437,7 +437,7 @@
         <StyleName>trams</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,ST_Length(way) AS
-                length,highway,construction,name,sac_scale,trail_visibility,via_ferrata_scale,service,surface,tracktype,lanes,embankment,oneway,railway,leisure,sport,attraction
+                length,highway,construction,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,sac_scale,trail_visibility,via_ferrata_scale,service,surface,tracktype,lanes,embankment,oneway,railway,leisure,sport,attraction
                 FROM planet_osm_line WHERE (!scale_denominator! &gt; 300000) OR ((bridge IS NULL OR bridge = 'no') AND (tunnel IS NULL OR tunnel !=
                 'yes')) AND (highway IS NOT NULL OR railway='tram' OR leisure='track' OR attraction='summer_toboggan') ORDER BY (CASE WHEN highway IN
                 ('motorway','trunk') THEN 5 WHEN highway='primary' THEN 1 WHEN highway='secondary' THEN 2 WHEN highway='tertiary' THEN 3 ELSE 4 END)
@@ -533,7 +533,7 @@
         <StyleName>road-names-text</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,ST_Length(way) AS
-                length,highway,service,surface,tracktype,layer,name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
+                length,highway,service,surface,tracktype,layer,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
                 'no') AND (highway IS NOT NULL OR railway = 'tram' OR leisure='track' OR attraction='summer_toboggan') AND (layer &gt; '2')) AS roads
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
@@ -592,7 +592,7 @@
     <Layer name="text-natural-poly">
         <StyleName>text-natural-poly</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,name,"natural",leisure,way_area FROM planet_osm_polygon WHERE (name IS NOT NULL) OR ("natural" IS NOT
+            <Parameter name="table">(SELECT way,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,"natural",leisure,way_area FROM planet_osm_polygon WHERE (name IS NOT NULL) OR ("natural" IS NOT
                 NULL) OR (leisure IS NOT NULL)) AS names
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
@@ -615,7 +615,7 @@
     <Layer name="symbols-stations">
         <StyleName>symbols-stations</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,name,railway,train,subway,station,direction FROM planet_osm_point WHERE (railway='station' OR
+            <Parameter name="table">(SELECT way,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,railway,train,subway,station,direction FROM planet_osm_point WHERE (railway='station' OR
                 railway='halt') AND ((direction IS NULL) OR direction SIMILAR TO '[0-9]+')) AS names
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
@@ -627,7 +627,7 @@
         <StyleName>symbols-peaks</StyleName>
         <StyleName>text-peaks</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,"natural",name,ele,"summit:cross",otm_isolation::INTEGER FROM planet_osm_point WHERE ("natural" =
+            <Parameter name="table">(SELECT way,"natural",get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele,"summit:cross",otm_isolation::INTEGER FROM planet_osm_point WHERE ("natural" =
                 'peak' or "natural" = 'volcano') ORDER BY otm_isolation::INTEGER DESC) AS symbols
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
@@ -670,7 +670,7 @@
     <Layer name="symbols-saddle">
         <StyleName>symbols-saddle</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,"natural",direction,name,ele FROM planet_osm_point where ("natural"='saddle' or "natural"='col' or
+            <Parameter name="table">(SELECT way,"natural",direction,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele FROM planet_osm_point where ("natural"='saddle' or "natural"='col' or
                 "natural"='notch') AND direction SIMILAR TO '[0-9]+') AS symbols
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
@@ -712,7 +712,7 @@
     <Layer name="road-names-text">
         <StyleName>road-names-text</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,ST_Length(way) AS length,highway,name,service,surface,tracktype,lanes,embankment,oneway FROM
+            <Parameter name="table">(SELECT way,ST_Length(way) AS length,highway,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,service,surface,tracktype,lanes,embankment,oneway FROM
                 planet_osm_line WHERE (!scale_denominator! &gt; 300000) OR ((bridge IS NULL OR bridge = 'no') AND (tunnel IS NULL OR tunnel != 'yes'))
                 AND (highway IS NOT NULL OR (leisure='track' AND sport='bobsleigh') OR attraction='summer_toboggan') ORDER BY (CASE WHEN highway IN
                 ('motorway','trunk') THEN 5 WHEN highway='primary' THEN 1 WHEN highway='secondary' THEN 2 WHEN highway='tertiary' THEN 3 ELSE 4 END)
@@ -758,7 +758,7 @@
     <Layer name="text-waterways">
         <StyleName>text-waterways</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,name,waterway FROM planet_osm_line WHERE waterway IS NOT NULL) AS names</Parameter>
+            <Parameter name="table">(SELECT way,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,waterway FROM planet_osm_line WHERE waterway IS NOT NULL) AS names</Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
         </Datasource>
@@ -778,7 +778,7 @@
         <StyleName>text-towns</StyleName>
         <StyleName>text-villages</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,admin_level,get_latin_name(name,"name:de",int_name,"name:en") as name,capital,'('&#124;&#124;substring(ele from '^[\d]+')&#124;&#124;')' as
+            <Parameter name="table">(SELECT way,admin_level,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,capital,'('&#124;&#124;substring(ele from '^[\d]+')&#124;&#124;')' as
                 ele,place,population::INTEGER FROM planet_osm_point WHERE (population IS NULL OR population SIMILAR TO '[[:digit:]]+') AND place IN
                 ('city','town','village','suburb','hamlet','isolated_dwelling','locality') ORDER BY (CASE WHEN place='city' THEN 0 WHEN place='town'
                 THEN 1 WHEN place='village' THEN 2 ELSE 3 END) ASC, (CASE WHEN population IS NUll THEN 0 WHEN population similar to '[[:digit:]]+'
