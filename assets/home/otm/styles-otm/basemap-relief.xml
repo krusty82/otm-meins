@@ -47,18 +47,18 @@
 </Layer>
 
 #Relief auch bei höherem Zoom
-<Style name="relief-500">
+<Style name="relief-150">
 	<Rule>
 		&maxscale_zoom9;
 		&minscale_zoom10;
 		<RasterSymbolizer opacity="0.9" scaling="bilinear" />
 	</Rule>
 </Style>
-<Layer name="relief-500">
+<Layer name="relief-150">
 	<StyleName>relief-500</StyleName>
 	<Datasource>
 		<Parameter name="type">gdal</Parameter>
-		<Parameter name="file">/mnt/data/srtm/relief-500.tif</Parameter>
+		<Parameter name="file">/mnt/data/srtm/relief-150.tif</Parameter>
 		<Parameter name="format">tiff</Parameter>
 	</Datasource>
 </Layer>
