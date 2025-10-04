@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OpenTopoMap Viewer</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen@1.6.0/Control.FullScreen.css" />
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    .map-info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: sans-serif;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<div class="map-info" id="mapInfo">
+  Zoom: <span id="zoomLevel">-</span><br>
+  Lat: <span id="lat">-</span><br>
+  Lng: <span id="lng">-</span>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.fullscreen@1.6.0/Control.FullScreen.js"></script>
+<script src="leaflet.edgebuffer.js"></script>
+<script>
+  const otmLayer = L.tileLayer('/otm/{z}/{x}/{y}.png', {
+    maxZoom: 17,
+    edgeBufferTiles: 2, // Pufferzone für benachbarte Kacheln
+    attribution: '© OpenTopoMap'
+  });
+
+  const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  });
+
+  const map = L.map('map', {
+    center: [48.1, 11.6],
+    zoom: 8,
+    fullscreenControl: true,
+    layers: [otmLayer]
+  });
+
+  const baseLayers = {
+    "OpenTopoMap (lokal)": otmLayer,
+    "OpenStreetMap": osmLayer
+  };
+
+  L.control.layers(baseLayers).addTo(map);
+
+  const zoomLevelEl = document.getElementById('zoomLevel');
+  const latEl = document.getElementById('lat');
+  const lngEl = document.getElementById('lng');
+
+  function updateZoomDisplay() {
+    zoomLevelEl.textContent = map.getZoom();
+  }
+
+  map.on('zoomend', updateZoomDisplay);
+  updateZoomDisplay();
+
+  map.on('mousemove', function (e) {
+    latEl.textContent = e.latlng.lat.toFixed(5);
+    lngEl.textContent = e.latlng.lng.toFixed(5);
+  });
+</script>
+</body>
+</html>
