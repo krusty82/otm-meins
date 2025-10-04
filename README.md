@@ -46,7 +46,7 @@ Create the directory `data` inside your project directory with these subdirector
 ```
 mkdir -p data/data
 mkdir -p data/db
-mkdir -p data/letsencrypt
+mkdir -p data/srtm
 ```
 
 Then edit your `docker-compose.yml` and change the following variables:
