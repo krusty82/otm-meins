@@ -7,3 +7,6 @@ createdb gis
 psql -d gis -c 'CREATE EXTENSION postgis;'
 psql -d gis -c 'GRANT SELECT ON ALL TABLES IN SCHEMA public TO tirex;'
 psql -d gis -c 'GRANT CONNECT ON DATABASE gis TO tirex;'
+
+#Funktion zur Namensanpassung hinzufügen
+psql -f get_localized_name.sql gis
