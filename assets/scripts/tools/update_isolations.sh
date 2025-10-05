@@ -58,5 +58,5 @@ psql -A -t -F ";" $DBname -c \
   "SELECT osm_id,ST_X(ST_Astext(ST_Transform(way,4326))),ST_Y(ST_Astext(ST_Transform(way,4326))),ele \
    FROM planet_osm_point WHERE \"natural\" IN ('peak','volcano') AND \
                                (otm_isolation IS NULL or otm_isolation NOT SIMILAR TO '[0-9]+');;" \
-  | $toolpath/isolation -f $demfile -o sql | psql $DBname 
+  | $toolpath/isolation -f $demfile -o sql | psql -q $DBname 
 
