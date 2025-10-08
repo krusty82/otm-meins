@@ -19,6 +19,11 @@ gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDIC
 cd ..
 #rm -rf unpacked
 
+#ggf. hgt sortieren nach Auflösung und getrennt bearbeiten. Am Ende mit gdalwarp kombinieren:
+
+#gdalwarp -overwrite -co BIGTIFF=YES -co COMPRESS=LZW raw_europe.tif raw_global.tif final_planet.tif
+
+
 gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs epsg:3857 -r bilinear -tr 1000 1000 raw.tif warp-1000.tif
 gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs epsg:3857 -r bilinear -tr 5000 5000 raw.tif warp-5000.tif
 gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs epsg:3857 -r bilinear -tr 500 500 raw.tif warp-500.tif
