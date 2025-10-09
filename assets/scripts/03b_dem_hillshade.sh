@@ -21,7 +21,7 @@ cd ..
 
 #ggf. hgt sortieren nach Auflösung und getrennt bearbeiten. Am Ende mit gdalwarp kombinieren:
 
-#gdalwarp -overwrite -co BIGTIFF=YES -co COMPRESS=LZW raw_europe.tif raw_global.tif final_planet.tif
+#gdalwarp -overwrite -multi -wm 2G -wo NUM_THREADS=ALL_CPUS -co BIGTIFF=YES -co COMPRESS=LZW euro.tif planet.tif raw.tif
 
 
 gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs epsg:3857 -r bilinear -tr 1000 1000 raw.tif warp-1000.tif
