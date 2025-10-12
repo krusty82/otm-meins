@@ -207,7 +207,16 @@
             &postgis-settings;
         </Datasource>
     </Layer>
-
+	
+    <Layer name="contours">
+        <StyleName>contours</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,ele FROM planet_osm_line) AS contours</Parameter>
+            <Parameter name="dbname">contours</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+	
     &basemap-sea;
 
     <Layer name="road-areas">
@@ -329,15 +338,6 @@
                 AS area
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
-
-    <Layer name="contours">
-        <StyleName>contours</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,ele FROM planet_osm_line) AS contours</Parameter>
-            <Parameter name="dbname">contours</Parameter>
             &postgis-settings;
         </Datasource>
     </Layer>
