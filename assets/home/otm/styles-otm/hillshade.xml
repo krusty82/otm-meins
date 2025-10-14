@@ -46,6 +46,26 @@
 	</Datasource>
 </Layer>
 
+
+<Style name="hillshade-150">
+        <Rule>
+                &maxscale_zoom9;
+                &minscale_zoom10;
+                <RasterSymbolizer comp-op="grain-merge" opacity="0.9" scaling="bicubic" />
+        </Rule>
+</Style>
+<Layer name="hillshade-150">
+        <StyleName>hillshade-150</StyleName>
+        <Datasource>
+                <Parameter name="type">gdal</Parameter>
+                <Parameter name="file">/mnt/data/srtm/hillshade-150.tif</Parameter>
+                <Parameter name="format">tiff</Parameter>
+        </Datasource>
+</Layer>
+
+
+
+
 <Style name="hillshade-30">
 	<Rule>
 		&maxscale_zoom9;
@@ -57,7 +77,7 @@
 	<StyleName>hillshade-30</StyleName>
 	<Datasource>
 		<Parameter name="type">gdal</Parameter>
-		<Parameter name="file">/mnt/data/srtm/hillshade-30-jpeg.tif</Parameter>
+		<Parameter name="file">/mnt/data/srtm/hillshade.vrt</Parameter>
 		<Parameter name="format">tiff</Parameter>
 	</Datasource>
 </Layer>
