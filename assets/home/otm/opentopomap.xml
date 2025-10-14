@@ -171,7 +171,7 @@
     <!-- layers -->
 
     &basemap-relief;
-
+    <!-- landuse-lowzoom deaktiviert, stattdessen wird Relief für zoom9 und 10 gezeichnet
     <Layer name="landuse-lowzoom">
         <StyleName>landuse-lowzoom</StyleName>
         <Datasource>
@@ -180,7 +180,7 @@
             &postgis-settings;
         </Datasource>
     </Layer>
-
+    -->
     <Layer name="landuse">
         <StyleName>landuse</StyleName>
         <Datasource>
