@@ -635,6 +635,17 @@
         </Datasource>
     </Layer>
 
+	<Layer name="symbols-saddle">
+        <StyleName>symbols-saddle</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,"natural",direction,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele FROM planet_osm_point where ("natural"='saddle' or "natural"='col' or
+                "natural"='notch') AND direction SIMILAR TO '[0-9]+') AS symbols
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+
     <Layer name="symbols-poly">
         <StyleName>symbols-1</StyleName>
         <StyleName>symbols-2</StyleName>
@@ -661,17 +672,6 @@
                 from '^[\d]+')&#124;&#124;')' as
                 height,building,"natural",name,ruins,"summit:cross",tourism,"power","generator:source","site_type",sport,disused,abandoned,railway,train,subway,otm_isolation::INTEGER
                 FROM planet_osm_point) AS symbols
-            </Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
-
-    <Layer name="symbols-saddle">
-        <StyleName>symbols-saddle</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,"natural",direction,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele FROM planet_osm_point where ("natural"='saddle' or "natural"='col' or
-                "natural"='notch') AND direction SIMILAR TO '[0-9]+') AS symbols
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
