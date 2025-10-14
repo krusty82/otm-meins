@@ -23,9 +23,9 @@ gdalbuildvrt -overwrite -hidenodata -srcnodata 0 -addalpha relief.vrt relief-eur
 # relief for zoom factors 1-4
 #gdaldem color-relief -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-5000.tif /home/otm/relief_color_text_file.txt relief-5000.tif
 # relief for zoom factors 5-8
-#gdaldem color-relief -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-500.tif /home/otm/relief_color_text_file.txt relief-500.tif
+#gdaldem color-relief -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-500.tif /home/otm/relief_color_text_file.txt relief-500.tif
 # relief for zoom factors 9-10
-#gdaldem color-relief -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-150.tif /home/otm/relief_color_text_file.txt relief-150.tif
+#gdaldem color-relief -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-150.tif /home/otm/relief_color_text_file.txt relief-150.tif
 #gdal_translate -co compress=JPEG -co bigtiff=yes -co tiled=yes relief-150.tif relief-150-jpeg.tif
 #gdal_translate -co compress=JPEG -co bigtiff=yes -co tiled=yes relief-euro.tif relief-euro-jpeg.tif
 #gdal_translate -co compress=JPEG -co bigtiff=yes -co tiled=yes relief-world.tif relief-world-jpeg.tif
