@@ -68,7 +68,7 @@
 
 <Style name="hillshade-30">
 	<Rule>
-		&maxscale_zoom9;
+		&maxscale_zoom11;
 		&minscale_zoom17;
 		<RasterSymbolizer comp-op="grain-merge" opacity="0.9" scaling="bicubic" />
 	</Rule>
