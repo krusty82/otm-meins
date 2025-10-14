@@ -3,6 +3,7 @@
 cd tools
 cc -o saddledirection saddledirection.c -lm -lgdal
 cc -Wall -o isolation isolation.c -lgdal -lm -O2
+psql gis < index.sql
 psql gis < arealabel.sql
 
 ./update_lowzoom.sh
