@@ -185,7 +185,7 @@ void get_isolation_by_DEM(struct list_peak *peak,long int numpeaks,double radius
 /* get all DEM values in this area */  
   
   DEMarea=malloc((w)*(h)*sizeof(int16_t));
-  CPLErr _unused = GDALRasterIO(hBand, GF_Read, xpx, ypx, 2, 2, area2x2, 2, 2, GDT_Int16, 0, 0);
+  CPLErr _unused =   GDALRasterIO(hBand,GF_Read,le,up,w,h,DEMarea,w,h,GDT_Int16,0,0); 
 (void)_unused;
   if(debuglevel>2){printf("calc isolation for peak %lld iso=%.7lf (%ld %ld points) le=%ld ri=%ld  dw=%ld up=%ld\n",peak[i].id,r,w,h,le,ri,dw,up);}
 
