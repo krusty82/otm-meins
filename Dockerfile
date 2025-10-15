@@ -6,7 +6,7 @@ ENV LC_ALL=en_US.UTF-8
 
 # Basis-Installation
 RUN apt-get update && apt-get install -y \
-    sudo git curl wget nano screen rsyslog \
+    sudo git curl wget nano screen rsyslog unzip \
     build-essential clang make cmake pkg-config autoconf debhelper devscripts \
     zlib1g-dev libbz2-dev libgeos-dev libpq-dev libproj-dev \
     libjson-perl libipc-sharelite-perl libgd-perl \
