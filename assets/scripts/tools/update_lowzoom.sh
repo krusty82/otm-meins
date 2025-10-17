@@ -17,7 +17,7 @@ psql -d lowzoom -c "CREATE INDEX water_way_idx ON water USING GIST (way);"
 
 # landuse
 echo "Simplifying landuse polygons..."
-psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_landuse AS SELECT ST_SimplifyPreserveTopology(way,150) AS way,landuse,\"natural\" FROM planet_osm_polygon WHERE landuse = 'forest' OR \"natural\" = 'wood' AND way_area > 50000;"
+psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_landuse AS SELECT ST_SimplifyPreserveTopology(way,150) AS way,landuse,\"natural\" FROM planet_osm_polygon WHERE (landuse = 'forest' OR \"natural\" = 'wood') AND way_area > 50000;"
 psql -d lowzoom -c "CREATE TABLE landuse (way geometry(Geometry,3857), landuse text, \"natural\" text);"
 psql -d lowzoom -c "INSERT INTO landuse SELECT * FROM dblink('dbname=gis','SELECT * FROM lowzoom_landuse') AS t(way geometry(Geometry,3857), landuse text, \"natural\" text);"
 psql -d lowzoom -c "CREATE INDEX landuse_way_idx ON landuse USING GIST (way);"
