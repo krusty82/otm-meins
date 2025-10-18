@@ -194,7 +194,6 @@
         </Datasource>
     </Layer>
 
-    &hillshade;
 
     <Layer name="landuse-over-hillshade">
         <StyleName>landuse-over-hillshade</StyleName>
@@ -207,6 +206,8 @@
             &postgis-settings;
         </Datasource>
     </Layer>
+
+	&hillshade;
 	
     <Layer name="contours">
         <StyleName>contours</StyleName>
