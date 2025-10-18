@@ -635,16 +635,34 @@
         </Datasource>
     </Layer>
 
-	<Layer name="symbols-saddle">
-        <StyleName>symbols-saddle</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,"natural",direction,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele FROM planet_osm_point where ("natural"='saddle' or "natural"='col' or
-                "natural"='notch') AND direction SIMILAR TO '[0-9]+') AS symbols
-            </Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
+    <Layer name="symbols-saddle">
+    	<StyleName>symbols-saddle</StyleName>
+    	<Datasource>
+        <Parameter name="table">
+            (
+                SELECT
+                    s.way,
+                    s."natural",
+                    s.direction,
+                    s.name,
+                    s.ele,
+                    CASE
+                        WHEN l.osm_id IS NOT NULL THEN true
+                        ELSE false
+                    END AS has_way
+                FROM planet_osm_point AS s
+                LEFT JOIN planet_osm_line AS l
+                  ON ST_Intersects(s.way, l.way)
+                  AND l.highway IN ('motorway','trunk','primary','secondary','tertiary','unclassified','residential')
+                WHERE
+                    s."natural" IN ('saddle','col','notch')
+                    AND s.direction SIMILAR TO '[0-9]+'
+            ) AS symbols
+        </Parameter>
+        <Parameter name="dbname">gis</Parameter>
+        &postgis-settings;
+   	 </Datasource>
+     </Layer>
 
     <Layer name="symbols-poly">
         <StyleName>symbols-1</StyleName>
