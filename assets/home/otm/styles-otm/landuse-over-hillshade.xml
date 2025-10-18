@@ -66,11 +66,16 @@
 	<!-- glaciers -->
 	<Rule>
 		&maxscale_zoom9;
+		&minscale_zoom10;
+		<Filter>([natural] = 'glacier')</Filter>
+		<PolygonSymbolizer fill="#d0f8ff" fill-opacity="0.9"/>
+	</Rule>
+	<Rule>
+		&maxscale_zoom11;
 		&minscale_zoom17;
 		<Filter>([natural] = 'glacier')</Filter>
 		<PolygonSymbolizer fill="#d0f8ff" fill-opacity="0.5"/>
-	</Rule>
-	
+	</Rule>	
 
 	<!-- residential fills -->
 	<Rule>
