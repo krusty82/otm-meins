@@ -184,14 +184,9 @@ CREATE or REPLACE FUNCTION get_localized_placename(name text, local_name text, i
         ELSE
          IF ( loc_in_brackets ) THEN
           IF ( is_latinorgreek(name)=false ) THEN
-           return local_name;
-          ELSE
            return name||' ('||local_name||')';
           END IF;
          ELSE
-          IF ( is_latinorgreek(name)=false ) THEN
-           return local_name;
-          ELSE
            return local_name||' ('||name||')';
           END IF;
          END IF;
