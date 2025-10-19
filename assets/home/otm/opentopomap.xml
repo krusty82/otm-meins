@@ -80,7 +80,7 @@
                 <!ENTITY symbols-saddle SYSTEM "styles-otm/symbols-saddle.xml">
                 <!ENTITY text-roads-ref SYSTEM "styles-otm/text-roads-ref.xml">
                 <!ENTITY text-waterways SYSTEM "styles-otm/text-waterways.xml">
-				<!ENTITY text-countries-lowzoom SYSTEM "styles-otm/text-countries-lowzoom.xml">
+                <!ENTITY text-countries-lowzoom SYSTEM "styles-otm/text-countries-lowzoom.xml">
                 <!ENTITY test SYSTEM "styles-otm/test.xml">
 
                 <!ENTITY % entities SYSTEM "inc/entities.xml.inc">
