@@ -80,6 +80,7 @@
                 <!ENTITY symbols-saddle SYSTEM "styles-otm/symbols-saddle.xml">
                 <!ENTITY text-roads-ref SYSTEM "styles-otm/text-roads-ref.xml">
                 <!ENTITY text-waterways SYSTEM "styles-otm/text-waterways.xml">
+				<!ENTITY text-countries-lowzoom SYSTEM "styles-otm/text-countries-lowzoom.xml">
                 <!ENTITY test SYSTEM "styles-otm/test.xml">
 
                 <!ENTITY % entities SYSTEM "inc/entities.xml.inc">
@@ -165,6 +166,7 @@
     &symbols-viewpoint;
     &text-roads-ref;
     &text-waterways;
+	&text-countries-lowzoom;
     &test;
 
 
@@ -787,6 +789,14 @@
         <StyleName>text-cities-lowzoom</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,admin_level,name,capital,place,population FROM cities ORDER BY population DESC) AS cities</Parameter>
+            <Parameter name="dbname">lowzoom</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+	<Layer name="text-countries-lowzoom">
+        <StyleName>text-countries-lowzoom</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,name,place,population FROM countries) AS countries</Parameter>
             <Parameter name="dbname">lowzoom</Parameter>
             &postgis-settings;
         </Datasource>
