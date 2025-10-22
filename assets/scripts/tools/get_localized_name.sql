@@ -175,7 +175,7 @@ CREATE or REPLACE FUNCTION get_localized_placename(name text, local_name text, i
       IF (name is NULL) THEN
        return local_name;
       ELSE
-        IF ( position(local_name in name)>0 or position('(' in name)>0 or position('(' in local_name)>0 ) THEN    
+        IF ( position(local_name in name)>0 or position('(' in name)>0 ) THEN    
          IF ( loc_in_brackets ) THEN
           return name;                                                       
          ELSE
