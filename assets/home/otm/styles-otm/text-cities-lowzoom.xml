@@ -1,5 +1,6 @@
-<!--
+
 <Style name="text-cities-lowzoom">
+<!--
 	<Rule>
 		&maxscale_zoom3;
 		&minscale_zoom3;
