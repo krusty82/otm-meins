@@ -3,7 +3,7 @@
         &maxscale_zoom3;
         &minscale_zoom3;
         <Filter>[place] = 'country'</Filter>
-        <TextSymbolizer face-name="DejaVu Sans Bold"
+        <TextSymbolizer fontset-name="sans-condensed-bold"
                         size="10"
                         fill="black"
                         fill-opacity="0.8"        <!-- 50% transparent -->
@@ -22,7 +22,7 @@
         &maxscale_zoom4;
         &minscale_zoom4;
         <Filter>[place] = 'country'</Filter>
-        <TextSymbolizer face-name="DejaVu Sans Bold"
+        <TextSymbolizer fontset-name="sans-condensed-bold"
                         size="12"
                         fill="black"
                         fill-opacity="0.5"        <!-- 50% transparent -->
@@ -41,7 +41,7 @@
         &maxscale_zoom5;
         &minscale_zoom5;
         <Filter>[place] = 'country'</Filter>
-        <TextSymbolizer face-name="DejaVu Sans Bold"
+        <TextSymbolizer fontset-name="sans-condensed-bold"
                         size="15"
                         fill="black"
                         fill-opacity="0.5"        <!-- 50% transparent -->
