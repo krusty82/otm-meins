@@ -45,13 +45,13 @@
     <Rule>
 		&maxscale_zoom15;
 		&minscale_zoom17;
-		<Filter>[natural] = 'saddle' and not ([name] = null) and not [has_way]</Filter>
+		<Filter>[natural] = 'saddle' and not ([name] = null)</Filter>
 		<TextSymbolizer allow-overlap="true" fontset-name="sans-oblique" size="11" fill="black" margin="1" halo-radius="2" halo-fill="rgba(255,255,255,0.8)" placement="point" dy="22" wrap-width="100">[name]+"\n"+[ele]</TextSymbolizer>
 	</Rule>
 	<Rule>
 		&maxscale_zoom15;
 		&minscale_zoom17;
-		<Filter>[natural] = 'saddle' and ([name] = null) and not [has_way]</Filter>
+		<Filter>[natural] = 'saddle' and ([name] = null)</Filter>
 		<TextSymbolizer allow-overlap="true" fontset-name="sans-oblique" size="9" fill="black" margin="1" halo-radius="2" halo-fill="rgba(255,255,255,0.8)" placement="point" dy="22" wrap-width="100">[ele]</TextSymbolizer>
 	</Rule>
 
@@ -70,13 +70,13 @@
 	<Rule>
 		&maxscale_zoom15;
 		&minscale_zoom17;
-		<Filter>([natural] = 'col' or [natural] = 'notch') and not ([name] = null) and not [has_way]</Filter>
+		<Filter>([natural] = 'col' or [natural] = 'notch') and not ([name] = null)</Filter>
 		<TextSymbolizer fontset-name="sans-oblique" size="9" fill="black" margin="1" halo-radius="2" halo-fill="rgba(255,255,255,0.8)" placement="point" dy="8" wrap-width="100">[name]+"\n"+[ele]</TextSymbolizer>
 	</Rule>
 	<Rule>
 		&maxscale_zoom15;
 		&minscale_zoom17;
-		<Filter>([natural] = 'col' or [natural] = 'notch') and ([name] = null) and not [has_way]</Filter>
+		<Filter>([natural] = 'col' or [natural] = 'notch') and ([name] = null)</Filter>
 		<TextSymbolizer fontset-name="sans-oblique" size="9" fill="black" margin="1" halo-radius="2" halo-fill="rgba(255,255,255,0.8)" placement="point" dy="8" wrap-width="100">[ele]</TextSymbolizer>
 	</Rule>
 
