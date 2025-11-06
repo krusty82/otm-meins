@@ -130,6 +130,7 @@ node,way	memorial:type	text	polygon
 node,way   military     text         polygon
 node,way	motorboat	text		polygon
 node,way   motorcar     text         linear
+node       mountain_pass text        linear
 node,way   name         text         linear
 node,way   name:de      text         linear
 node,way   name:en      text         linear
