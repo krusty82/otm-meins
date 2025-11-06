@@ -78,6 +78,7 @@
                 <!ENTITY symbols-point SYSTEM "styles-otm/symbols-point.xml">
                 <!ENTITY symbols-viewpoint SYSTEM "styles-otm/symbols-viewpoint.xml">
                 <!ENTITY symbols-saddle SYSTEM "styles-otm/symbols-saddle.xml">
+                <!ENTITY text-bays SYSTEM "styles-otm/text-bays.xml">
                 <!ENTITY text-roads-ref SYSTEM "styles-otm/text-roads-ref.xml">
                 <!ENTITY text-waterways SYSTEM "styles-otm/text-waterways.xml">
                 <!ENTITY text-countries-lowzoom SYSTEM "styles-otm/text-countries-lowzoom.xml">
@@ -159,6 +160,7 @@
     &symbols-peaks;
     &text-peaks;
     &symbols-saddle;
+	&text-bays;
     &symbols-1;
     &symbols-2;
     &symbols-poly;
@@ -687,6 +689,7 @@
         <StyleName>symbols-1</StyleName>
         <StyleName>symbols-2</StyleName>
         <StyleName>symbols-point</StyleName>
+	    <StyleName>text-bays</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT
                 way,access,amenity,highway,historic,"memorial:type",castle_type,leaf_type,religion,denomination,denotation,"man_made","tower:type","communication:radio","communication:television",'('&#124;&#124;substring(height
