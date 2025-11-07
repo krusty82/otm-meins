@@ -799,7 +799,7 @@
 	<Layer name="text-countries-lowzoom">
         <StyleName>text-countries-lowzoom</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,name,place,population FROM countries) AS countries</Parameter>
+            <Parameter name="table">(SELECT way,name,place,population FROM countries) ORDER BY population DESC AS countries</Parameter>
             <Parameter name="dbname">lowzoom</Parameter>
             &postgis-settings;
         </Datasource>
