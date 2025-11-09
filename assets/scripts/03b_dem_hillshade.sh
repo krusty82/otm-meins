@@ -7,15 +7,17 @@ if [ ! -d "/mnt/data/srtm" ]; then
   echo "Please put some HGT ZIP files into the directory /mnt/data/srtm."
   exit
 fi
-
+cd srtm
 
 
 cd hgt
+cd VIEW3
 for hgtfile in *.hgt; do gdal_fillnodata.py $hgtfile $hgtfile.tif; done
 #rm -f *.hgt
 
-gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -o ../raw.tif *.hgt.tif
+gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -o ../../raw.tif *.hgt.tif
 
+cd ..
 cd ..
 #rm -rf unpacked
 
