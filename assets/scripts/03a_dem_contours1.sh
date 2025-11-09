@@ -1,7 +1,9 @@
 #!/bin/bash
 
 
-cd /mnt/data/srtm
+cd /mnt/data
+mkdir srtm
+cd srtm
 
 # create contour lines - this takes a long time
 # and you need A LOT of RAM, at least 16 GB are needed!
