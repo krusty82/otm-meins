@@ -219,7 +219,7 @@
         <StyleName>glaciers</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,landuse,"natural",leaf_type,amenity,building,power FROM planet_osm_polygon WHERE 
-                ("natural" = 'glacier') AS
+                ("natural" = 'glacier')) AS
                 landuse
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
