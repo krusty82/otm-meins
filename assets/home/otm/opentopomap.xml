@@ -12,6 +12,7 @@
                 <!ENTITY landuse SYSTEM "styles-otm/landuse.xml">
                 <!ENTITY landuse-over-hillshade SYSTEM "styles-otm/landuse-over-hillshade.xml">
                 <!ENTITY hillshade SYSTEM "styles-otm/hillshade.xml">
+				<!ENTITY glaciers SYSTEM "styles-otm/glaciers.xml">
                 <!ENTITY basemap-sea SYSTEM "styles-otm/basemap-sea.xml">
                 <!ENTITY water-casing-lowzoom SYSTEM "styles-otm/water-casing-lowzoom.xml">
                 <!ENTITY water-fill-lowzoom SYSTEM "styles-otm/water-fill-lowzoom.xml">
@@ -100,6 +101,7 @@
     &landuse-lowzoom;
     &landuse;
     &landuse-over-hillshade;
+	&glaciers;
     &water-casing-lowzoom;
     &water-fill-lowzoom;
     &waterway-lines-lowzoom;
@@ -212,6 +214,18 @@
     </Layer>
 
 	&hillshade;
+	
+	<Layer name="glaciers">
+        <StyleName>glaciers</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,landuse,"natural",leaf_type,amenity,building,power FROM planet_osm_polygon WHERE 
+                ("natural" = 'glacier') AS
+                landuse
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
 	
     <Layer name="contours">
         <StyleName>contours</StyleName>
