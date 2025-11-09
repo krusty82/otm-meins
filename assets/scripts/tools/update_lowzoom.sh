@@ -56,7 +56,7 @@ psql -d lowzoom -c "CREATE INDEX cities_way_idx ON cities USING GIST (way);"
 
 #countries and states
 echo "Simplifying countries and states..."
-psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_countries AS SELECT way,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,place,population::integer FROM planet_osm_point WHERE place IN ('country','state'));"
+psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_countries AS SELECT way,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,place,population::integer FROM planet_osm_point WHERE place IN ('country','state');"
 psql -d lowzoom -c "CREATE TABLE countries (way geometry(Point,3857), name text, place text, population integer);"
 psql -d lowzoom -c "INSERT INTO countries SELECT * FROM dblink('dbname=gis','SELECT * FROM lowzoom_countries') AS t(way geometry(Point,3857), name text, place text, population integer);"
 psql -d lowzoom -c "CREATE INDEX countries_way_idx ON cities USING GIST (way);"
@@ -68,7 +68,7 @@ psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_lakelabel    AS SELECT arealabel(
 psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_baylabel     AS SELECT arealabel(osm_id,way) AS way,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,'bayaxis'::text     AS label,way_area FROM planet_osm_polygon WHERE  \"natural\" = 'bay' AND name IS NOT NULL;"
 # psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_bayllabel    AS SELECT ST_LineMerge(longway) AS way,name,'bayaxis'::text    AS label,len*len/10 as way_area FROM (SELECT ST_Collect(way) AS longway,SUM(ST_Length(way)) AS len,MAX(name) AS name FROM planet_osm_line WHERE \"natural\"='bay' AND name is NOT NULL GROUP BY osm_id) AS t;"
 # Fjorde die als Lines gemapped sind auch importieren und dabei alle MultiLineStrings in LineStrings konvertieren
-psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_bayllabel AS SELECT dumped.geom AS way, t.name, 'bayaxis'::text AS label, t.len*t.len/10 AS way_area FROM (SELECT way AS longway, SUM(ST_Length(way)) AS len, MAX(name) AS name, osm_id FROM planet_osm_line WHERE natural='bay' AND name IS NOT NULL GROUP BY osm_id, way) AS t JOIN LATERAL ST_Dump(ST_LineMerge(t.longway)) AS dumped ON true;"
+psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_bayllabel AS SELECT dumped.geom AS way, t.name, 'bayaxis'::text AS label, t.len*t.len/10 AS way_area FROM (SELECT way AS longway, SUM(ST_Length(way)) AS len, MAX(name) AS name, osm_id FROM planet_osm_line WHERE \"natural\"='bay' AND name IS NOT NULL GROUP BY osm_id, way) AS t JOIN LATERAL ST_Dump(ST_LineMerge(t.longway)) AS dumped ON true;"
 
 psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_straitplabel AS SELECT arealabel(osm_id,way) AS way,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,'straitaxis'::text  AS label,way_area FROM planet_osm_polygon WHERE  \"natural\" = 'strait' AND name IS NOT NULL;"
 psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_straitllabel AS SELECT ST_LineMerge(longway) AS way,name,'straitaxis'::text AS label,len*len/10 as way_area FROM (SELECT ST_Collect(way) AS longway,SUM(ST_Length(way)) AS len,MAX(name) AS name FROM planet_osm_line WHERE \"natural\"='strait' AND name is NOT NULL GROUP BY osm_id) AS t;"
