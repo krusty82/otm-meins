@@ -1,3 +1,4 @@
+<!--
 <Style name="text-countries-lowzoom">
     <Rule>
         &maxscale_zoom3;
@@ -18,7 +19,8 @@
             [name]
         </TextSymbolizer>
     </Rule>
-    <Rule>
+-->  
+	<Rule>
         &maxscale_zoom4;
         &minscale_zoom4;
         <Filter>[place] = 'country'</Filter>
