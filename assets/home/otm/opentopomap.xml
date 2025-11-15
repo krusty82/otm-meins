@@ -481,7 +481,7 @@
     <Layer name="ferry-routes">
         <StyleName>ferry-routes</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,route FROM planet_osm_line WHERE route IS NOT NULL) AS route</Parameter>
+            <Parameter name="table">(SELECT way,route FROM planet_osm_line WHERE route = 'ferry') AS route</Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
         </Datasource>
