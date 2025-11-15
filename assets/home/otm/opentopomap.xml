@@ -205,7 +205,7 @@
         <StyleName>landuse-over-hillshade</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,landuse,"natural",leaf_type,amenity,building,power FROM planet_osm_polygon WHERE (landuse IS NOT NULL)
-                OR ("natural" IS NOT NULL) OR (leaf_type IS NOT NULL) OR (amenity IS NOT NULL) OR (building IS NOT NULL) OR (power IS NOT NULL)) AS
+                OR ("natural" IS NOT NULL) OR (leaf_type IS NOT NULL) OR (amenity IS NOT NULL) OR (power IS NOT NULL)) AS
                 landuse
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
