@@ -7,7 +7,7 @@
 		<PolygonPatternSymbolizer file="symbols-otm/bare_rock.png" opacity="0.3"/>
 	</Rule>
 	<Rule>
-		&maxscale_zoom10;
+		&maxscale_zoom11;
 		&minscale_zoom17;
 		<Filter>([natural] = 'scree')</Filter>
 		<PolygonPatternSymbolizer file="symbols-otm/scree.png"/>
@@ -63,37 +63,24 @@
 	</Rule>
 	
 
-	<!-- glaciers
-	<Rule>
-		&maxscale_zoom9;
-		&minscale_zoom10;
-		<Filter>([natural] = 'glacier')</Filter>
-		<PolygonSymbolizer fill="#d0f8ff" fill-opacity="0.9"/>
-	</Rule>
-	<Rule>
-		&maxscale_zoom11;
-		&minscale_zoom17;
-		<Filter>([natural] = 'glacier')</Filter>
-		<PolygonSymbolizer fill="#d0f8ff" fill-opacity="0.5"/>
-	</Rule>	
--->
+
 	<!-- residential fills -->
 	<Rule>
-		&maxscale_zoom10;
+		&maxscale_zoom11;
 		&minscale_zoom13;
-		<Filter>[landuse] = 'residential' or [landuse] = 'industrial' or [amenity] = 'university' or [amenity] = 'school' or [amenity] = 'hospital' or [landuse] = 'farmyard' or (([power]='plant' or [power]='substation') and ([building]=null or [building]!='no'))</Filter>
+		<Filter>[landuse] = 'residential' or [landuse] = 'industrial' or [amenity] = 'university' or [amenity] = 'school' or [amenity] = 'hospital' or [landuse] = 'farmyard' or (([power]='plant' or [power]='substation'))</Filter>
 		<PolygonSymbolizer fill="#aaaaaa" fill-opacity="0.3" />
 	</Rule>
 	<Rule>
 		&maxscale_zoom14;
 		&minscale_zoom14;
-		<Filter>[landuse] = 'residential' or [landuse] = 'industrial' or [amenity] = 'university' or [amenity] = 'school' or [amenity] = 'hospital' or [landuse] = 'farmyard' or (([power]='plant' or [power]='substation') and ([building]=null or [building]!='no'))</Filter>
+		<Filter>[landuse] = 'residential' or [landuse] = 'industrial' or [amenity] = 'university' or [amenity] = 'school' or [amenity] = 'hospital' or [landuse] = 'farmyard' or (([power]='plant' or [power]='substation'))</Filter>
 		<PolygonSymbolizer fill="#aaaaaa" fill-opacity="0.15" />
 	</Rule>
 	<Rule>
 		&maxscale_zoom15;
 		&minscale_zoom17;
-		<Filter>[landuse] = 'residential' or [landuse] = 'industrial' or [amenity] = 'university' or [amenity] = 'school' or [amenity] = 'hospital' or [landuse] = 'farmyard' or (([power]='plant' or [power]='substation') and ([building]=null or [building]!='no'))</Filter>
+		<Filter>[landuse] = 'residential' or [landuse] = 'industrial' or [amenity] = 'university' or [amenity] = 'school' or [amenity] = 'hospital' or [landuse] = 'farmyard' or (([power]='plant' or [power]='substation'))</Filter>
 		<PolygonSymbolizer fill="#aaaaaa" fill-opacity="0.1" />
 	</Rule>
 </Style>
