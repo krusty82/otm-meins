@@ -285,7 +285,7 @@
     <Layer name="landuse-over-water">
         <StyleName>landuse-over-water</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,"natural",wetland FROM planet_osm_polygon WHERE ("natural" IS NOT NULL) OR (wetland IS NOT NULL)) AS
+            <Parameter name="table">(SELECT way,"natural",wetland FROM planet_osm_polygon WHERE ("natural" IN ('wetland','beach')) OR (wetland IS NOT NULL)) AS
                 landuse
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
