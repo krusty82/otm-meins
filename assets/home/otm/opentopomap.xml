@@ -478,13 +478,26 @@
         </Datasource>
     </Layer>
 
-    <Layer name="ferry-routes">
+	 <Layer name="ferry-routes">
         <StyleName>ferry-routes</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,route FROM planet_osm_line WHERE route = 'ferry' AND osm_id>0) AS route</Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
+    <Datasource>
+        <Parameter name="table">
+            (SELECT
+                ST_LineMerge(ST_Collect(way)) AS way,
+                name,
+                ST_Length(ST_LineMerge(ST_Collect(way))) AS length
+             FROM planet_osm_line
+             WHERE route='ferry'
+             AND osm_id>0
+                GROUP BY name
+            ) AS routes
+        </Parameter>
+        <Parameter name="geometry_field">way</Parameter>
+        <Parameter name="srid">3857</Parameter>
+        <Parameter name="dbname">gis</Parameter>
+        &postgis-settings;
+    </Datasource>
+
     </Layer>
 
     <Layer name="railway-bridges">
