@@ -35,6 +35,10 @@ ON planet_osm_line(name);
 CREATE INDEX IF NOT EXISTS idx_line_natural
 ON planet_osm_line("natural");
 
+--Ferry
+CREATE INDEX planet_osm_line_route_ferry_idx
+  ON planet_osm_line (route)
+  WHERE route = 'ferry';
 
 
 
