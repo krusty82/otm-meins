@@ -1,14 +1,19 @@
 <Style name="ferry-routes">
+	 <Rule>
+           &maxscale_zoom6;
+           &minscale_zoom9;
+          <Filter>[length] &gt; 100000</Filter>
+          <LineSymbolizer stroke="#0000ff" stroke-width="0.5" stroke-dasharray="5,5" />
+     </Rule>
+
 	<Rule>
 		&maxscale_zoom10;
 		&minscale_zoom13;
-		<Filter>([route] = 'ferry')</Filter>
 		<LineSymbolizer stroke="#0000ff" stroke-width="0.5" stroke-dasharray="5,5" />
 	</Rule>
 	<Rule>
 		&maxscale_zoom14;
 		&minscale_zoom17;
-		<Filter>([route] = 'ferry')</Filter>
 		<LineSymbolizer stroke="#0000ff" stroke-width="0.5" stroke-dasharray="7,7" />
 	</Rule>
 </Style>
