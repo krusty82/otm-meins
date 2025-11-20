@@ -12,7 +12,6 @@ fi
 
 if [ ! -d "/mnt/tiles" ]; then
   mkdir -p /mnt/tiles/opentopomap
-  mkdir -p /mnt/tiles/example
   chmod -R 777 /mnt/tiles
 fi
 
