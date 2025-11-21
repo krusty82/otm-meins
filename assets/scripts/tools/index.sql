@@ -20,10 +20,16 @@ ON planet_osm_polygon(name);
 CREATE INDEX IF NOT EXISTS idx_polygon_natural
 ON planet_osm_polygon("natural");
 
--- Natural
+-- Glacier
 CREATE INDEX IF NOT EXISTS idx_polygon_glacier
 ON planet_osm_polygon("natural")
 WHERE "natural"='glacier';
+
+-- Peaks
+CREATE INDEX IF NOT EXISTS idx_point_peaks
+ON planet_osm_point("natural")
+WHERE "natural" IN ('peak','volcano');
+
 -- region:type
 CREATE INDEX IF NOT EXISTS idx_planet_region_type
 ON planet_osm_polygon("region:type");
@@ -40,9 +46,33 @@ CREATE INDEX IF NOT EXISTS idx_line_natural
 ON planet_osm_line("natural");
 
 --Ferry
-CREATE INDEX planet_osm_line_route_ferry_idx
-  ON planet_osm_line (route)
+CREATE INDEX IF NOT EXISTS planet_osm_line_route_ferry_idx
+  ON planet_osm_line (route)  
   WHERE route = 'ferry';
 
+CREATE INDEX IF NOT EXISTS idx_polygon_military
+  ON planet_osm_polygon (landuse)  
+  WHERE landuse = 'military';
 
 
+CREATE INDEX IF NOT EXISTS idx_polygon_nature_reserve
+  ON planet_osm_polygon (leisure)  
+  WHERE leisure = 'nature_reserve';
+
+CREATE INDEX IF NOT EXISTS idx_polygon_amenity
+  ON planet_osm_polygon (amenity); 
+
+CREATE INDEX IF NOT EXISTS idx_polygon_wetland
+  ON planet_osm_polygon (wetland); 
+
+CREATE INDEX IF NOT EXISTS idx_polygon_orchard
+  ON planet_osm_polygon (orchard);
+
+CREATE INDEX IF NOT EXISTS idx_polygon_nature_reserve
+  ON planet_osm_polygon (leisure);
+
+CREATE INDEX IF NOT EXISTS idx_line_power
+  ON planet_osm_line (power);  
+
+CREATE INDEX IF NOT EXISTS idx_point_power
+  ON planet_osm_point (power);  
