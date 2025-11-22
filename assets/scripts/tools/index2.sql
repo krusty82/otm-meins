@@ -93,8 +93,8 @@ CREATE INDEX planet_osm_polygon_water_idx
     WHERE water IS NOT NULL;
 
 CREATE INDEX planet_osm_polygon_natural_idx
-    ON planet_osm_polygon (natural)
-    WHERE natural IS NOT NULL;
+    ON planet_osm_polygon ("natural")
+    WHERE "natural" IS NOT NULL;
 
 CREATE INDEX planet_osm_polygon_landuse_idx
     ON planet_osm_polygon (landuse)
