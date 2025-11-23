@@ -25,6 +25,6 @@
 <StyleName>antarctica</StyleName>
 <Datasource>
         <Parameter name="type">shape</Parameter>
-        <Parameter name="file">/mnt/data/antarctica-icesheet-polygons-3857/icesheet_polygo>
+        <Parameter name="file">/mnt/data/antarctica-icesheet-polygons-3857/icesheet_polygons>
 </Datasource>
 </Layer>
