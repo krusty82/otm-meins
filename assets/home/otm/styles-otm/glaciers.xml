@@ -13,6 +13,18 @@
 		<PolygonSymbolizer fill="#d0f8ff" fill-opacity="0.5"/>
 	</Rule>
 </Style>
+
+	<Layer name="glaciers">
+        <StyleName>glaciers</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,landuse,"natural",leaf_type,amenity,building,power FROM planet_osm_polygon WHERE 
+                ("natural" = 'glacier')) AS
+                landuse
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
 <Style name="antarctica">
         <Rule>
                 &maxscale_zoom0;
