@@ -13,3 +13,18 @@
 		<PolygonSymbolizer fill="#d0f8ff" fill-opacity="0.5"/>
 	</Rule>
 </Style>
+<Style name="antarctica">
+        <Rule>
+                &maxscale_zoom0;
+                &minscale_zoom17;
+                <PolygonSymbolizer fill="#d0f8ff" fill-opacity="0.9"/>
+        </Rule>
+</Style>
+
+<Layer name="antarctica">
+<StyleName>antarctica</StyleName>
+<Datasource>
+        <Parameter name="type">shape</Parameter>
+        <Parameter name="file">/mnt/data/antarctica-icesheet-polygons-3857/icesheet_polygo>
+</Datasource>
+</Layer>
