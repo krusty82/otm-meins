@@ -1,17 +1,53 @@
-<Style name="waterpolys_z8">
-<Rule>
-	&maxscale_zoom0;
-	&minscale_zoom8;
-	<PolygonSymbolizer fill="#97d2e3" />
-</Rule>
+
+<Style name="searelief-5000">
+	<Rule>
+		&maxscale_zoom1;
+		&minscale_zoom4;
+		<RasterSymbolizer opacity="0.9" scaling="bilinear" />
+	</Rule>
 </Style>
-<Style name="waterpolys_z9">
-<Rule>
-	&maxscale_zoom9;
-	&minscale_zoom10;
-	<PolygonSymbolizer fill="#97d2e3" />
-</Rule>
+<Layer name="searelief-5000">
+	<StyleName>searelief-5000</StyleName>
+	<Datasource>
+		<Parameter name="type">gdal</Parameter>
+		<Parameter name="file">/mnt/data/srtm/searelief-5000.tif</Parameter>
+		<Parameter name="format">tiff</Parameter>
+	</Datasource>
+</Layer>
+
+<Style name="searelief-500">
+	<Rule>
+		&maxscale_zoom5;
+		&minscale_zoom8;
+		<RasterSymbolizer opacity="0.9" scaling="bilinear" />
+	</Rule>
 </Style>
+<Layer name="searelief-500">
+	<StyleName>searelief-500</StyleName>
+	<Datasource>
+		<Parameter name="type">gdal</Parameter>
+		<Parameter name="file">/mnt/data/srtm/searelief-500.tif</Parameter>
+		<Parameter name="format">tiff</Parameter>
+	</Datasource>
+</Layer>
+
+<Style name="searelief-150">
+	<Rule>
+		&maxscale_zoom9;
+		&minscale_zoom10;
+		<RasterSymbolizer opacity="0.9" scaling="bilinear" />
+	</Rule>
+</Style>
+<Layer name="searelief-150">
+	<StyleName>relief-150</StyleName>
+	<Datasource>
+		<Parameter name="type">gdal</Parameter>
+		<Parameter name="file">/mnt/data/srtm/searelief-150-jpeg.tif</Parameter>
+		<Parameter name="format">tiff</Parameter>
+	</Datasource>
+</Layer>
+</Style>
+
 <Style name="waterpolys_z11">
 <Rule>
 	&maxscale_zoom11;
@@ -20,16 +56,7 @@
 </Rule>
 </Style>
 
-<Layer name="waterpolys_z8">
-<StyleName>waterpolys_z8</StyleName>
-<Datasource>
-	<Parameter name="type">shape</Parameter>
-	<Parameter name="file">/mnt/data/water-polygons/simplified-water-polygons-split-3857/simplified_water_polygons</Parameter>
-</Datasource>
-</Layer>
-
 <Layer name="waterpolys">
-<StyleName>waterpolys_z9</StyleName>
 <StyleName>waterpolys_z11</StyleName>
 <Datasource>
 	<Parameter name="type">shape</Parameter>
