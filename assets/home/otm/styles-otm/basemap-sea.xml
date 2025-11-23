@@ -46,7 +46,6 @@
 		<Parameter name="format">tiff</Parameter>
 	</Datasource>
 </Layer>
-</Style>
 
 <Style name="waterpolys_z11">
 <Rule>
