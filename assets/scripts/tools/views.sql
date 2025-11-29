@@ -36,4 +36,16 @@ CREATE INDEX landuse_over_water_way_idx
     USING GIST (way);
 GRANT SELECT ON landuse_over_water TO tirex;
 
+-- view on areas
+CREATE MATERIALIZED VIEW areas AS
+SELECT
+    way,landuse,leisure,way_area
+FROM planet_osm_polygon
+WHERE
+    (landuse = 'military') 
+    OR (leisure = 'nature_reserve');
 
+CREATE INDEX areas_way_idx
+    ON areas
+    USING GIST (way);
+GRANT SELECT ON areas TO tirex;
