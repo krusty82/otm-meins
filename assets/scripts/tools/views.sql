@@ -19,3 +19,21 @@ CREATE INDEX ferry_routes_lowzoom_name_idx
     ON ferry_routes_lowzoom (name);
 
 GRANT SELECT ON ferry_routes_lowzoom TO tirex;
+
+-- view on landuse_over_water
+CREATE MATERIALIZED VIEW landuse_over_water AS
+SELECT
+    way,
+    "natural",
+    wetland
+FROM planet_osm_polygon
+WHERE
+    ("natural" IN ('wetland','beach'))
+    OR (wetland IS NOT NULL);
+
+CREATE INDEX landuse_over_water_way_idx
+    ON landuse_over_water
+    USING GIST (way);
+GRANT SELECT ON landuse_over_water TO tirex;
+
+
