@@ -1,0 +1,9 @@
+<Style name="ferry-routes-lowzoom">
+         <Rule>
+                &maxscale_zoom6;
+                &minscale_zoom9;
+                <Filter>[length] &gt; 100000</Filter>
+                <LineSymbolizer stroke="#0000ff" stroke-width="0.5" stroke-dasharray="5,5" />
+        </Rule>
+
+</Style>
