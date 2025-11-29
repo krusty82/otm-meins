@@ -52,6 +52,7 @@
                 <!ENTITY railway-points SYSTEM "styles-otm/railway-points.xml">
                 <!ENTITY symbols-road SYSTEM "styles-otm/symbols-road.xml">
                 <!ENTITY ferry-routes SYSTEM "styles-otm/ferry-routes.xml">
+				<!ENTITY ferry-routes-lowzoom SYSTEM "styles-otm/ferry-routes-lowzoom.xml">
                 <!ENTITY railway-bridges-casing SYSTEM "styles-otm/railway-bridges-casing.xml">
                 <!ENTITY railway-bridges SYSTEM "styles-otm/railway-bridges.xml">
                 <!ENTITY bridges-casing SYSTEM "styles-otm/bridges-casing.xml">
@@ -467,8 +468,8 @@
         </Datasource>
     </Layer>
 
-	 <Layer name="ferry-routes">
-        <StyleName>ferry-routes</StyleName>
+<Layer name="ferry-routes-lowzoom">
+    <StyleName>ferry-routes-lowzoom</StyleName>
     <Datasource>
         <Parameter name="table">
             (SELECT
@@ -477,9 +478,27 @@
                 ST_Length(ST_LineMerge(ST_Collect(way))) AS length
              FROM planet_osm_line
              WHERE route='ferry'
-             AND osm_id>0
                 GROUP BY name
             ) AS routes
+        </Parameter>
+        <Parameter name="geometry_field">way</Parameter>
+        <Parameter name="srid">3857</Parameter>
+        <Parameter name="dbname">gis</Parameter>
+        &postgis-settings;
+    </Datasource>
+</Layer>
+<Layer name="ferry-routes">
+    <StyleName>ferry-routes</StyleName>
+    <Datasource>
+        <Parameter name="table">
+            (SELECT
+                way,
+                name,
+                route
+             FROM planet_osm_line
+             WHERE route='ferry'
+             and osm_id>0
+              ) AS routes
         </Parameter>
         <Parameter name="geometry_field">way</Parameter>
         <Parameter name="srid">3857</Parameter>
