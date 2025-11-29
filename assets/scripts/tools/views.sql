@@ -49,3 +49,13 @@ CREATE INDEX areas_way_idx
     ON areas
     USING GIST (way);
 GRANT SELECT ON areas TO tirex;
+-- view on landuse
+CREATE MATERIALIZED VIEW landuse AS
+SELECT way,way_area,landuse,leisure,"natural",wetland,leaf_type,amenity,crop,orchard 
+    FROM planet_osm_polygon
+    WHERE (landuse IS NOT NULL) OR (leisure IS NOT NULL) OR ("natural" IS NOT NULL) OR (wetland IS NOT NULL) OR (leaf_type IS NOT NULL) OR
+                (amenity IS NOT NULL) OR (crop IS NOT NULL) OR (orchard IS NOT NULL) ORDER BY (CASE WHEN landuse='forest' THEN 0 ELSE 1 END) asc;
+CREATE INDEX landuse_way_idx
+    ON landuse
+    USING GIST (way);
+GRANT SELECT ON landuse TO tirex;
