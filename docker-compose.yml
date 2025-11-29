@@ -2,6 +2,8 @@
 
 services:
   otm-docker:
+    shm_size: 1g
+    restart: always
     image: otm-meins
     container_name: otm-meins
     environment:
