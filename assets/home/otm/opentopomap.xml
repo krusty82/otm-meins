@@ -479,6 +479,7 @@
                 ST_Length(ST_LineMerge(ST_Collect(way))) AS length
              FROM planet_osm_line
              WHERE route='ferry'
+			 and osm_id>0
                 GROUP BY name
             ) AS routes
         </Parameter>
