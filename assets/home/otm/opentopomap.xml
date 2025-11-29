@@ -140,6 +140,7 @@
     &housenumbers-poly;
     &housenumbers-point;
     &ferry-routes;
+	&ferry-routes-lowzoom;
     &railway-bridges-casing;
     &railway-bridges;
     &road-names-text;
