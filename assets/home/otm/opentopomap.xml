@@ -343,8 +343,7 @@
     <Layer name="areas">
         <StyleName>areas</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,landuse,leisure,way_area FROM planet_osm_polygon WHERE (landuse = 'military') OR (leisure = 'nature_reserve'))
-                AS area
+            <Parameter name="table">areas
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
