@@ -9,7 +9,7 @@ services:
     environment:
       - LETSENCRYPT=0
       - EMAIL=admin@this.srv
-      - DOMAIN=localhost
+      - DOMAIN=otm.weier2000.de
       - WHITELIST=127.0.0.1
       - MOD_TILE_PREVENT_EXPIRATION=1
     volumes:
@@ -17,5 +17,5 @@ services:
       - ./data/db:/var/lib/postgresql
       - ./data/letsencrypt:/etc/letsencrypt
     ports:
-      - '80:80'
-      - '443:443'
+      - '8880:80'
+      - '88443:443'
