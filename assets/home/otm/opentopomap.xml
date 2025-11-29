@@ -493,14 +493,7 @@
     <StyleName>ferry-routes</StyleName>
     <Datasource>
         <Parameter name="table">
-            (SELECT
-                way,
-                name,
-                route
-             FROM planet_osm_line
-             WHERE route='ferry'
-             and osm_id>0
-              ) AS routes
+			ferry_routes_lowzoom
         </Parameter>
         <Parameter name="geometry_field">way</Parameter>
         <Parameter name="srid">3857</Parameter>
