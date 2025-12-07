@@ -59,3 +59,29 @@ CREATE INDEX landuse_way_idx
     ON landuse
     USING GIST (way);
 GRANT SELECT ON landuse TO tirex;
+
+-- view for saddles
+ CREATE MATERIALIZED VIEW mv_symbols_saddle AS
+SELECT                                                               
+    s.way,                           
+    s."natural",
+    s.direction,
+    s.name,
+    s.ele,
+    CASE                     
+        WHEN l.osm_id IS NOT NULL THEN true
+        ELSE false
+    END AS has_way
+FROM planet_osm_point AS s
+LEFT JOIN planet_osm_line AS l
+  ON ST_Intersects(s.way, l.way)
+  AND l.highway IN ('motorway','trunk','primary','secondary','tertiary','unclassified','residential')
+WHERE
+    s."natural" IN ('saddle','col','notch')
+    AND s.direction ~ '^[0-9]+$';  
+
+-- GIST-Index auf die Geometrie
+CREATE INDEX idx_mv_symbols_saddle_way                               
+ON mv_symbols_saddle USING GIST (way);
+
+
