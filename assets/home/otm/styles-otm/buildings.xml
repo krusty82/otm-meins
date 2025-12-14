@@ -9,7 +9,7 @@
 		&maxscale_zoom14;
 		&minscale_zoom14;
 		<LineSymbolizer stroke="black" stroke-width="0.1" />
-		<PolygonSymbolizer fill="black" />
+		<PolygonSymbolizer fill="#555555" />
 	</Rule>
 	<Rule>
 		&maxscale_zoom15;
