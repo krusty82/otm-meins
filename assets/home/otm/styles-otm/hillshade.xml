@@ -51,7 +51,7 @@
         <Rule>
                 &maxscale_zoom9;
                 &minscale_zoom10;
-                <RasterSymbolizer comp-op="grain-merge" opacity="0.9" scaling="bicubic" />
+                <RasterSymbolizer comp-op="grain-merge" opacity="0.83" scaling="bicubic" />
         </Rule>
 </Style>
 <Layer name="hillshade-150">
@@ -70,7 +70,7 @@
 	<Rule>
 		&maxscale_zoom11;
 		&minscale_zoom17;
-		<RasterSymbolizer comp-op="grain-merge" opacity="0.9" scaling="bicubic" />
+		<RasterSymbolizer comp-op="grain-merge" opacity="0.83" scaling="bicubic" />
 	</Rule>
 </Style>
 <Layer name="hillshade-30">
