@@ -22,11 +22,6 @@ RUN apt-get update && apt-get install -y \
 RUN locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
 
-# Certbot (per Snap)
-#RUN apt-get install -y snapd && \
-#    snap install core && snap refresh core && \
-#    snap install --classic certbot && \
-#    ln -s /snap/bin/certbot /usr/bin/certbot
 
 # tirex (z. B. Version 0.6.1)
 #RUN apt-get install -y tirex
@@ -39,34 +34,16 @@ RUN git clone https://github.com/geofabrik/tirex /home/tirex && \
 
 # mod_tile (z. B. Version 0.4)
 RUN apt-get install -y libapache2-mod-tile renderd
-#RUN apt-get install -y devscripts debhelper build-essential dh-autoreconf
-#RUN git clone https://github.com/openstreetmap/mod_tile.git /home/mod_tile && \
-#    cd /home/mod_tile && \
-#    echo '/etc/renderd.conf' > debian/renderd.conffiles && \
-#    debuild -i -b -us -uc && \
-#    dpkg -i /home/libapache2-mod-tile_0.4-12~precise2_amd64.deb && \
 RUN   mkdir /mnt/tiles && rm -rf /var/lib/tirex/tiles && rm -rf /var/lib/mod_tile && ln -s /mnt/tiles /var/lib/tirex/tiles && ln -s /mnt/tiles /var/lib/mod_tile
 
 
 
-# osm2pgsql (aus Source)
+# osm2pgsql
 RUN apt-get install -y osm2pgsql
-#RUN mkdir ~/osm2pgsql && cd ~/osm2pgsql && \
-#    git clone https://github.com/openstreetmap/osm2pgsql.git && \
-#    cd osm2pgsql && \
-#    mkdir build && cd build && \
-#    cmake .. && make && make install && \
-#    rm -rf ~/osm2pgsql
-
-
-# tirex-example-map installieren, falls vorhanden
-#RUN dpkg -i /home/tirex-example-map_0.6.1_amd64.deb || true
 
 # pyhgtmap
 RUN pip3 install pyhgtmap
 RUN pip3 install class_registry==2.1.1
-
-RUN dpkg -i /home/tirex-example-map_0.6.1_amd64.deb
 
 # nik4
 RUN wget -O /usr/local/bin/nik4.py https://raw.githubusercontent.com/Zverik/Nik4/master/nik4.py && \
@@ -78,9 +55,6 @@ COPY assets /
 # Apache-Module aktivieren
 RUN a2dismod mpm_event && \
     a2enmod mpm_prefork headers tile proxy proxy_http proxy_balancer ssl rewrite
-    
-
-
 
 # Umgebungsvariablen
 ENV LETSENCRYPT=0
