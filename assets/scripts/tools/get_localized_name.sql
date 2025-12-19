@@ -187,14 +187,14 @@ CREATE or REPLACE FUNCTION get_localized_placename(name text, local_name text, i
            return local_name;
           ELSE
 */
-		return name||' ('||local_name||')';
+		return name|| CHR(10) '('||local_name||')';
 /*          END IF;*/
          ELSE
 /*		  IF ( is_latinorgreek(name)=false ) THEN
            return local_name;
           ELSE
 */
-           return local_name||' ('||name||')';
+           return local_name|| CHR(10) '('||name||')';
 /*          END IF;*/
          END IF;
         END IF;
