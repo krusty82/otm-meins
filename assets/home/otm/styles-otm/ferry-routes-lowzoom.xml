@@ -4,6 +4,12 @@
                 &minscale_zoom9;
                 <Filter>[length] &gt; 100000</Filter>
                 <LineSymbolizer stroke="#0000ff" stroke-width="0.5" stroke-dasharray="5,5" />
+                <TextSymbolizer fontset-name="sans-oblique" fill="#2020ff" halo-radius="1" halo-fill="rgba(255,255,255,0.8)" max-char-angle-delta="0" smooth="0.5" horizontal-alignment="adjust" placement="line" size="13" placement-type="list">[name]
+                     <Placement size="12"/>
+                     <Placement size="11"/>
+                     <Placement size="10"/>
+                     <Placement size="9"/>
+                 </TextSymbolizer>
         </Rule>
 
 </Style>
