@@ -92,7 +92,7 @@ psql -d lowzoom -c "CREATE INDEX lakelabels_way_idx ON lakelabels USING GIST (wa
 
 echo "Create lines for seas..."
 psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_sealabel    AS SELECT arealabel(osm_id,way) AS way,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,'lakeaxis'::text    AS label,way_area FROM planet_osm_polygon WHERE (place='sea') AND name IS NOT NULL;"
-psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_seaplabel   AS SELECT ST_MakeLine(way, way) as way,name,'sea'::text as label, 2E10 as way_area FROM planet_osm_point WHERE place='sea' AND name is NOT NULL;"
+psql -d gis -c "CREATE OR REPLACE VIEW lowzoom_seaplabel   AS SELECT ST_MakeLine(way, way) as way,get_localized_placename(name,\"name:de\",int_name,\"name:en\",true) as name,'sea'::text as label, 2E10 as way_area FROM planet_osm_point WHERE place='sea' AND name is NOT NULL;"
 
 echo "lowzoom_sealabel..."
 psql -d lowzoom -c "INSERT INTO lakelabels SELECT * FROM dblink('dbname=gis','SELECT * FROM lowzoom_sealabel')     AS t(way geometry(LineString,3857), name text, label text, way_area real);"
