@@ -4,14 +4,14 @@
 		&maxscale_zoom10;
 		&minscale_zoom13;
 		<LineSymbolizer stroke="#0000ff" stroke-width="0.5" stroke-dasharray="5,5" />
-	    <TextSymbolizer fontset-name="sans-oblique" size="10" fill="#2020ff" spacing="200" repeat-distance="1250" minimum-path-length="200" max-char-angle-delta="30" dy="2" halo-radius="1" halo-fill="rgba(255,255,255,0.8)" placement="line">[name]</TextSymbolizer>
+                <TextSymbolizer fontset-name="sans-oblique" size="10" fill="#2020ff" spacing="400" repeat-distance="1000" minimum-path-length="250" max-char-angle-delta="30" dy="2" halo-radius="1" halo-fill="rgba(255,255,255,0.8)" placement="line">[name]</TextSymbolizer>
 
 	</Rule>
 	<Rule>
 		&maxscale_zoom14;
 		&minscale_zoom17;
 		<LineSymbolizer stroke="#0000ff" stroke-width="0.5" stroke-dasharray="7,7" />
-		<TextSymbolizer fontset-name="sans-oblique" size="10" fill="#2020ff" spacing="200" repeat-distance="1250" minimum-path-length="200" max-char-angle-delta="30" dy="2" halo-radius="1" halo-fill="rgba(255,255,255,0.8)" placement="line">[name]</TextSymbolizer>
+                <TextSymbolizer fontset-name="sans-oblique" size="10" fill="#2020ff" spacing="400" repeat-distance="1000" minimum-path-length="250" max-char-angle-delta="30" dy="2" halo-radius="1" halo-fill="rgba(255,255,255,0.8)" placement="line">[name]</TextSymbolizer>
 
 	</Rule>
 </Style>

@@ -1,0 +1,10 @@
+<Style name="text-bays">
+	
+	<!-- -->
+	<Rule>
+		&maxscale_zoom14;
+		&minscale_zoom17;
+		<Filter>[natural] = 'bay' and [name] != ''</Filter>
+		<TextSymbolizer fontset-name="sans-oblique" size="9" fill="#5427ff" halo-radius="2" halo-fill="rgba(255,255,255,0.9)" placement="point"  wrap-width="100" wrap-before="true">[name]</TextSymbolizer>
+	</Rule>
+</Style>
