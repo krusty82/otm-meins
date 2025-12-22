@@ -12,7 +12,7 @@
                 <!ENTITY landuse SYSTEM "styles-otm/landuse.xml">
                 <!ENTITY landuse-over-hillshade SYSTEM "styles-otm/landuse-over-hillshade.xml">
                 <!ENTITY hillshade SYSTEM "styles-otm/hillshade.xml">
-		<!ENTITY glaciers SYSTEM "styles-otm/glaciers.xml">
+                <!ENTITY glaciers SYSTEM "styles-otm/glaciers.xml">
                 <!ENTITY basemap-sea SYSTEM "styles-otm/basemap-sea.xml">
                 <!ENTITY water-casing-lowzoom SYSTEM "styles-otm/water-casing-lowzoom.xml">
                 <!ENTITY water-fill-lowzoom SYSTEM "styles-otm/water-fill-lowzoom.xml">
@@ -52,7 +52,7 @@
                 <!ENTITY railway-points SYSTEM "styles-otm/railway-points.xml">
                 <!ENTITY symbols-road SYSTEM "styles-otm/symbols-road.xml">
                 <!ENTITY ferry-routes SYSTEM "styles-otm/ferry-routes.xml">
-		<!ENTITY ferry-routes-lowzoom SYSTEM "styles-otm/ferry-routes-lowzoom.xml">
+                <!ENTITY ferry-routes-lowzoom SYSTEM "styles-otm/ferry-routes-lowzoom.xml">
                 <!ENTITY railway-bridges-casing SYSTEM "styles-otm/railway-bridges-casing.xml">
                 <!ENTITY railway-bridges SYSTEM "styles-otm/railway-bridges.xml">
                 <!ENTITY bridges-casing SYSTEM "styles-otm/bridges-casing.xml">
@@ -61,6 +61,8 @@
                 <!ENTITY aerialways SYSTEM "styles-otm/aerialways.xml">
                 <!ENTITY powerlines SYSTEM "styles-otm/powerlines.xml">
                 <!ENTITY powertowers SYSTEM "styles-otm/powertowers.xml">
+                <!ENTITY text-bays SYSTEM "styles-otm/text-bays.xml">
+                <!ENTITY text-seas SYSTEM "styles-otm/text-seas.xml">
                 <!ENTITY text-cities-lowzoom SYSTEM "styles-otm/text-cities-lowzoom.xml">
                 <!ENTITY text-cities SYSTEM "styles-otm/text-cities.xml">
                 <!ENTITY text-towns SYSTEM "styles-otm/text-towns.xml">
@@ -150,6 +152,8 @@
     &aerialways;
     &powerlines;
     &powertowers;
+	&text-bays;
+	&text-seas;
     &text-cities-lowzoom;
     &text-cities;
     &text-towns;
@@ -471,15 +475,7 @@
     <StyleName>ferry-routes-lowzoom</StyleName>
     <Datasource>
         <Parameter name="table">
-            (SELECT
-                ST_LineMerge(ST_Collect(way)) AS way,
-                name,
-                ST_Length(ST_LineMerge(ST_Collect(way))) AS length
-             FROM planet_osm_line
-             WHERE route='ferry'
-			 and osm_id>0
-                GROUP BY name
-            ) AS routes
+           ferry_routes_lowzoom
         </Parameter>
         <Parameter name="geometry_field">way</Parameter>
         <Parameter name="srid">3857</Parameter>
@@ -500,6 +496,19 @@
     </Datasource>
 
     </Layer>
+<Layer name="text-seas">
+    <StyleName>text-seas</StyleName>
+    <Datasource>
+        <Parameter name="table">
+			(SELECT way,name FROM planet_osm_point WHERE place='sea') AS seas
+        </Parameter>
+        <Parameter name="geometry_field">way</Parameter>
+        <Parameter name="srid">3857</Parameter>
+        <Parameter name="dbname">gis</Parameter>
+        &postgis-settings;
+    </Datasource>
+
+</Layer>
 
     <Layer name="railway-bridges">
         <StyleName>railway-bridges-casing</StyleName>
