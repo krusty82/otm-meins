@@ -500,7 +500,7 @@
     <StyleName>text-seas</StyleName>
     <Datasource>
         <Parameter name="table">
-			(SELECT way,name FROM planet_osm_point WHERE place='sea') AS seas
+			(SELECT way,name,"name:de" as namede,"name:en" as nameen FROM planet_osm_point WHERE place='sea') AS seas
         </Parameter>
         <Parameter name="geometry_field">way</Parameter>
         <Parameter name="srid">3857</Parameter>

@@ -3,9 +3,7 @@
 <Rule>
                 &maxscale_zoom5;
                 &minscale_zoom10;
-                <TextSymbolizer fontset-name="sans-oblique" fill="#2020ff" halo-radius="1" halo-fill="rgba(255,255,255,0.8)" max-char-angle-delta="0" smooth="0.5"  placement="point" size="12">[name]
-            <Placement size="11"/>
-            <Placement size="10"/>
-            <Placement size="9"/>
+                <TextSymbolizer fontset-name="sans-oblique" fill="#2020ff" halo-radius="1" halo-fill="rgba(255,255,255,0.8)" wrap-width="100" max-char-angle-delta="0" smooth="0.5"  placement="point" size="12">[nameen]
         </TextSymbolizer>
  </Rule>
+</Style>
