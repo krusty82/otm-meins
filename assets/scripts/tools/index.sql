@@ -45,10 +45,6 @@ ON planet_osm_line(name);
 CREATE INDEX IF NOT EXISTS idx_line_natural
 ON planet_osm_line("natural");
 
---Ferry
-CREATE INDEX IF NOT EXISTS planet_osm_line_route_ferry_idx
-  ON planet_osm_line (route)  
-  WHERE route = 'ferry';
 
 CREATE INDEX IF NOT EXISTS idx_polygon_military
   ON planet_osm_polygon (landuse)  
@@ -58,18 +54,6 @@ CREATE INDEX IF NOT EXISTS idx_polygon_military
 CREATE INDEX IF NOT EXISTS idx_polygon_nature_reserve
   ON planet_osm_polygon (leisure)  
   WHERE leisure = 'nature_reserve';
-
-CREATE INDEX IF NOT EXISTS idx_polygon_amenity
-  ON planet_osm_polygon (amenity); 
-
-CREATE INDEX IF NOT EXISTS idx_polygon_wetland
-  ON planet_osm_polygon (wetland); 
-
-CREATE INDEX IF NOT EXISTS idx_polygon_orchard
-  ON planet_osm_polygon (orchard);
-
-CREATE INDEX IF NOT EXISTS idx_polygon_nature_reserve
-  ON planet_osm_polygon (leisure);
 
 CREATE INDEX IF NOT EXISTS idx_line_power
   ON planet_osm_line (power);  
