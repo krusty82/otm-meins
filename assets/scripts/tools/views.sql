@@ -14,10 +14,6 @@ CREATE INDEX ferry_routes_lowzoom_way_idx
     ON ferry_routes_lowzoom
     USING GIST (way);
 
--- Optional sinnvoll: Name-Index (falls Filter darauf)
-CREATE INDEX ferry_routes_lowzoom_name_idx
-    ON ferry_routes_lowzoom (name);
-
 GRANT SELECT ON ferry_routes_lowzoom TO tirex;
 
 -- view on landuse_over_water
@@ -49,6 +45,7 @@ CREATE INDEX areas_way_idx
     ON areas
     USING GIST (way);
 GRANT SELECT ON areas TO tirex;
+
 -- view on landuse
 CREATE MATERIALIZED VIEW landuse AS
 SELECT way,way_area,landuse,leisure,"natural",wetland,leaf_type,amenity,crop,orchard 
@@ -83,5 +80,5 @@ WHERE
 -- GIST-Index auf die Geometrie
 CREATE INDEX idx_mv_symbols_saddle_way                               
 ON mv_symbols_saddle USING GIST (way);
-
+GRANT SELECT ON mv_symbols_saddle TO tirex;
 
