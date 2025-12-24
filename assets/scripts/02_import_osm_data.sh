@@ -2,7 +2,7 @@
 
 MEMORY=16000  # change this to the memory you have available
 # Suche nach .pbf-Datei im Ordner /mnt/data
-DATA_FILE=$(find /mnt/data -maxdepth 1 -type f -name "*.pbf" | head -n 1)
+DATA_FILE=$(find /mnt -maxdepth 1 -type f -name "*.pbf" | head -n 1)
 
 # Load data into database
 if [ ! -f $DATA_FILE ]; then
