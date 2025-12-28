@@ -132,7 +132,8 @@ $$ LANGUAGE 'plpgsql';
 
 
 CREATE or REPLACE FUNCTION get_localized_placename(name text, local_name text, int_name text, name_en text, loc_in_brackets boolean) RETURNS TEXT AS $$
-  BEGIN
+ local_name=name_en;  /*always return name_en*/ 
+ BEGIN
     IF (local_name is NULL) THEN
       IF (int_name is NULL) THEN
 	IF (name_en is NULL) THEN
