@@ -18,7 +18,7 @@ demfile='/mnt/data/srtm/raw.tif'
 
 psql -A -t -F ";" $DBname -c \
   "SELECT osm_id,ST_X(ST_Astext(ST_Transform(way,4326))),ST_Y(ST_Astext(ST_Transform(way,4326))),direction \
-   FROM planet_osm_point WHERE \"natural\" IN ('saddle','col','notch') AND \
+   FROM planet_osm_point WHERE (\"natural\" IN ('saddle','col','notch') OR mountain_pass = 'yes') AND \
                                (direction IS NULL or direction NOT SIMILAR TO '[0-9]+');;" \
    | $toolpath/saddledirection -f $demfile -o sql | psql $DBname 
 
