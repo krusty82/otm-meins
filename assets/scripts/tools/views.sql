@@ -65,6 +65,7 @@ SELECT
     s.direction,
     s.name,
     s.ele,
+    s.mountain_pass,
     CASE                     
         WHEN l.osm_id IS NOT NULL THEN true
         ELSE false
@@ -74,7 +75,10 @@ LEFT JOIN planet_osm_line AS l
   ON ST_Intersects(s.way, l.way)
   AND l.highway IN ('motorway','trunk','primary','secondary','tertiary','unclassified','residential')
 WHERE
-    s."natural" IN ('saddle','col','notch')
+    (
+        s."natural" IN ('saddle','col','notch')
+        OR s.mountain_pass = 'yes'
+    )
     AND s.direction ~ '^[0-9]+$';  
 
 -- GIST-Index auf die Geometrie
