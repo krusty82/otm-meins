@@ -82,7 +82,6 @@
                 <!ENTITY symbols-point SYSTEM "styles-otm/symbols-point.xml">
                 <!ENTITY symbols-viewpoint SYSTEM "styles-otm/symbols-viewpoint.xml">
                 <!ENTITY symbols-saddle SYSTEM "styles-otm/symbols-saddle.xml">
-                <!ENTITY text-bays SYSTEM "styles-otm/text-bays.xml">
                 <!ENTITY text-roads-ref SYSTEM "styles-otm/text-roads-ref.xml">
                 <!ENTITY text-waterways SYSTEM "styles-otm/text-waterways.xml">
                 <!ENTITY text-countries-lowzoom SYSTEM "styles-otm/text-countries-lowzoom.xml">
@@ -96,15 +95,13 @@
 	zoom 0...8: #117803
 	zoom 9+: e0e0e0
 -->
-<Map background-color="#e0e0e0"
-     srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over" buffer-size="256">
+<Map background-color="#e0e0e0" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over" buffer-size="256">
     <!-- style definitions -->
     &fontset-settings;
 
     &landuse-lowzoom;
     &landuse;
     &landuse-over-hillshade;
-
     &water-casing-lowzoom;
     &water-fill-lowzoom;
     &waterway-lines-lowzoom;
@@ -142,7 +139,7 @@
     &housenumbers-poly;
     &housenumbers-point;
     &ferry-routes;
-	&ferry-routes-lowzoom;
+    &ferry-routes-lowzoom;
     &railway-bridges-casing;
     &railway-bridges;
     &road-names-text;
@@ -152,8 +149,8 @@
     &aerialways;
     &powerlines;
     &powertowers;
-	&text-bays;
-	&text-seas;
+    &text-bays;
+    &text-seas;
     &text-cities-lowzoom;
     &text-cities;
     &text-towns;
@@ -168,7 +165,6 @@
     &symbols-peaks;
     &text-peaks;
     &symbols-saddle;
-	&text-bays;
     &symbols-1;
     &symbols-2;
     &symbols-poly;
@@ -376,9 +372,7 @@
     <Layer name="barriers-poly">
         <StyleName>barriers</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,barrier,historic,fenced,ST_Perimeter(way) AS length FROM planet_osm_polygon WHERE (barrier IS NOT
-                NULL) OR (historic IS NOT NULL) OR (fenced IS NOT NULL)) AS barriers
-            </Parameter>
+			<Parameter name="table">(SELECT way,barrier,historic,fenced,"natural",ST_Perimeter(way) AS length FROM planet_osm_polygon WHERE (barrier IS NOT NULL) OR (historic IS NOT NULL) OR (fenced IS NOT NULL) OR ("natural" IS NOT NULL)) AS barriers </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
         </Datasource>
@@ -386,9 +380,7 @@
     <Layer name="barriers-line">
         <StyleName>barriers</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,barrier,historic,fenced,ST_Length(way) AS length FROM planet_osm_line WHERE (barrier IS NOT NULL) OR
-                (historic IS NOT NULL) OR (fenced IS NOT NULL)) AS barriers
-            </Parameter>
+			<Parameter name="table">(SELECT way,barrier,historic,fenced,"natural",ST_Length(way) AS length FROM planet_osm_line WHERE (barrier IS NOT NULL) OR (historic IS NOT NULL) OR (fenced IS NOT NULL) OR ("natural" IS NOT NULL)) AS barriers </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
         </Datasource>
@@ -471,8 +463,8 @@
         </Datasource>
     </Layer>
 
-<Layer name="ferry-routes-lowzoom">
-    <StyleName>ferry-routes-lowzoom</StyleName>
+<Layer name="ferry-routes">
+    <StyleName>ferry-routes</StyleName>
     <Datasource>
        	<Parameter name="table">(SELECT way,route,name FROM planet_osm_line WHERE route = 'ferry' AND osm_id > 0) AS route </Parameter>
         <Parameter name="geometry_field">way</Parameter>
@@ -481,8 +473,8 @@
         &postgis-settings;
     </Datasource>
 </Layer>
-<Layer name="ferry-routes">
-    <StyleName>ferry-routes</StyleName>
+<Layer name="ferry-routes-lowzoom">
+    <StyleName>ferry-routes-lowzoom</StyleName>
     <Datasource>
         <Parameter name="table">
 			ferry_routes_lowzoom
@@ -540,7 +532,7 @@
         <StyleName>road-names-text</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,ST_Length(way) AS
-                length,highway,service,surface,tracktype,layer,name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
+                length,highway,construction,service,surface,tracktype,layer,name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
                 'no') AND (highway IS NOT NULL OR railway = 'tram' OR leisure='track' OR attraction='summer_toboggan') AND (layer IS NULL OR layer
                 &lt;= '1')) AS roads
             </Parameter>
@@ -557,7 +549,7 @@
         <StyleName>road-names-text</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,ST_Length(way) AS
-                length,highway,service,surface,tracktype,layer,name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
+                length,highway,construction,service,surface,tracktype,layer,name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
                 'no') AND (highway IS NOT NULL OR railway = 'tram' OR leisure='track' OR attraction='summer_toboggan') AND (layer = '2')) AS roads
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
@@ -573,7 +565,7 @@
         <StyleName>road-names-text</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,ST_Length(way) AS
-                length,highway,service,surface,tracktype,layer,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
+                length,highway,construction,service,surface,tracktype,layer,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,railway,oneway,leisure,sport,attraction FROM planet_osm_line WHERE (bridge !=
                 'no') AND (highway IS NOT NULL OR railway = 'tram' OR leisure='track' OR attraction='summer_toboggan') AND (layer &gt; '2')) AS roads
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
@@ -755,7 +747,7 @@
         <Datasource>
             <Parameter name="table">(SELECT way,ST_Length(way) AS length,highway,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,service,surface,tracktype,lanes,embankment,oneway FROM
                 planet_osm_line WHERE (!scale_denominator! &gt; 300000) OR ((bridge IS NULL OR bridge = 'no') AND (tunnel IS NULL OR tunnel != 'yes'))
-                AND (highway IS NOT NULL OR (leisure='track' AND sport='bobsleigh') OR attraction='summer_toboggan') ORDER BY (CASE WHEN highway IN
+                AND ((highway IS NOT NULL AND highway!='construction') OR (leisure='track' AND sport='bobsleigh') OR attraction='summer_toboggan') ORDER BY (CASE WHEN highway IN
                 ('motorway','trunk') THEN 5 WHEN highway='primary' THEN 1 WHEN highway='secondary' THEN 2 WHEN highway='tertiary' THEN 3 ELSE 4 END)
                 DESC ) AS roads
             </Parameter>

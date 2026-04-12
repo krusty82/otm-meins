@@ -93,8 +93,7 @@ int interpolate_direction(double lon,double lat,double radius, int steps,double 
     
   if((!goterror)&&(xpx>0)&&(xpx<xsize-1)&&(ypx>0)&&(ypx<ysize-1)){
    if((i==0)||(xpx_a!=xpx)||(ypx_a!=ypx)){ 
-    CPLErr _unused = GDALRasterIO(hBand, GF_Read, xpx, ypx, 2, 2, area2x2, 2, 2, GDT_Int16, 0, 0);
-(void)_unused;
+    GDALRasterIO(hBand,GF_Read,xpx,ypx,2,2,area2x2,2,2,GDT_Int16,0,0);
     xpx_a=xpx;ypx_a=ypx;
     if(debuglevel>2){printf("  Getting x/y:%ld %ld at %lf %lf h=%d %d %d %d\n",xpx,ypx,adfGeoTransform[0]+xpx*adfGeoTransform[1],adfGeoTransform[3]+ypx*adfGeoTransform[5],area2x2[0],area2x2[1],area2x2[2],area2x2[3]);}
    }else{

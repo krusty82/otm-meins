@@ -115,8 +115,8 @@ node,way   generator:source    text  linear
 node,way   harbour      text         polygon
 node,way    height      text        polygon
 node,way   highway      text         linear
-node,way   historic     text         polygon
 node,way   hiking       text         linear
+node,way   historic     text         polygon
 node,way   horse        text         linear
 node,way   intermittent text         linear
 node,way   junction     text         linear

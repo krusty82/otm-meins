@@ -1,4 +1,3 @@
-
 <Style name="text-cities-lowzoom">
 <!--
 	<Rule>
@@ -25,8 +24,7 @@
 			<Placement dx="-3" dy="2" />
 		</TextSymbolizer>
 	</Rule>
-
-    <Rule>
+        <Rule>
 		&maxscale_zoom5;
 		&minscale_zoom5;
 		<Filter>([capital] = 'yes' and [admin_level] = '2' and [population] &gt; 100E3)</Filter>
