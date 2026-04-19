@@ -8,24 +8,29 @@
 CREATE INDEX planet_osm_point_way_idx
     ON planet_osm_point USING GIST(way);
 
- CREATE INDEX planet_osm_point_peaks_idx
-    ON planet_osm_point ("natural")
-    WHERE "natural" IN ('peak','volcano');
+CREATE INDEX planet_osm_point_peaks_geom_idx
+ON planet_osm_point
+USING GIST (way)
+WHERE "natural" IN ('peak','volcano');
 
 CREATE INDEX planet_osm_point_amenity_idx
     ON planet_osm_point (amenity)
+    USING GIST (way)
     WHERE amenity IS NOT NULL;
 
 CREATE INDEX planet_osm_point_tourism_idx
     ON planet_osm_point (tourism)
+    USING GIST (way)
     WHERE tourism IS NOT NULL;
 
 CREATE INDEX planet_osm_point_shop_idx
     ON planet_osm_point (shop)
+    USING GIST (way)
     WHERE shop IS NOT NULL;
 
 CREATE INDEX planet_osm_point_historic_idx
     ON planet_osm_point (historic)
+    USING GIST (way)
     WHERE historic IS NOT NULL;
 
 CREATE INDEX planet_osm_point_route_ferry_idx
