@@ -61,6 +61,7 @@
                 <!ENTITY aerialways SYSTEM "styles-otm/aerialways.xml">
                 <!ENTITY powerlines SYSTEM "styles-otm/powerlines.xml">
                 <!ENTITY powertowers SYSTEM "styles-otm/powertowers.xml">
+                <!ENTITY text-islands-lowzoom SYSTEM "styles-otm/text-islands-lowzoom.xml">
                 <!ENTITY text-bays SYSTEM "styles-otm/text-bays.xml">
                 <!ENTITY text-seas SYSTEM "styles-otm/text-seas.xml">
                 <!ENTITY text-cities-lowzoom SYSTEM "styles-otm/text-cities-lowzoom.xml">
@@ -149,6 +150,7 @@
     &aerialways;
     &powerlines;
     &powertowers;
+    &text-islands-lowzoom;
     &text-bays;
     &text-seas;
     &text-cities-lowzoom;
@@ -462,6 +464,15 @@
             &postgis-settings;
         </Datasource>
     </Layer>
+    <Layer name="symbols-road" clear-label-cache="on">
+        <StyleName>symbols-road</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,name,highway,amenity,fee,access FROM planet_osm_point WHERE (highway = 'bus_stop') OR (amenity = 'parking')) AS symbols
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
 
 <Layer name="ferry-routes">
     <StyleName>ferry-routes</StyleName>
@@ -482,6 +493,20 @@
         <Parameter name="geometry_field">way</Parameter>
         <Parameter name="srid">3857</Parameter>
         <Parameter name="dbname">gis</Parameter>
+        &postgis-settings;
+    </Datasource>
+
+    </Layer>
+    
+    <Layer name="text-islands-lowzoom">
+    <StyleName>text-islands-lowzoom</StyleName>
+    <Datasource>
+        <Parameter name="table">
+			(SELECT way,name,place,way_area FROM islands) AS islands
+        </Parameter>
+        <Parameter name="geometry_field">way</Parameter>
+        <Parameter name="srid">3857</Parameter>
+        <Parameter name="dbname">lowzoom</Parameter>
         &postgis-settings;
     </Datasource>
 
@@ -659,8 +684,7 @@
         <StyleName>symbols-peaks</StyleName>
         <StyleName>text-peaks</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,"natural",get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele,"summit:cross",otm_isolation::INTEGER FROM planet_osm_point WHERE ("natural" =
-                'peak' or "natural" = 'volcano') ORDER BY otm_isolation::INTEGER DESC) AS symbols
+            <Parameter name="table">(SELECT way,"natural",get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele,"summit:cross",otm_isolation::INTEGER FROM planet_osm_point WHERE ("natural" IN ('peak','volcano') ORDER BY otm_isolation::INTEGER DESC) AS symbols
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;

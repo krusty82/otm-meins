@@ -18,9 +18,16 @@
 		<PointSymbolizer file="symbols-otm/parking.png"/>
 	</Rule>-->
 	<Rule>
-		&maxscale_zoom16;
+		&maxscale_zoom15;
+		&minscale_zoom16;
+		<Filter>[highway] = 'bus_stop'</Filter>
+		<PointSymbolizer file="symbols-otm/bus_stop.png"/>
+	</Rule>
+	<Rule>
+		&maxscale_zoom17;
 		&minscale_zoom17;
 		<Filter>[highway] = 'bus_stop'</Filter>
+		<TextSymbolizer fontset-name="sans-oblique" size="9" fill="#5427ff" halo-radius="2" halo-fill="rgba(255,255,255,0.9)" placement="point" dy="7" wrap-width="100" wrap-before="true">[name]</TextSymbolizer>
 		<PointSymbolizer file="symbols-otm/bus_stop.png"/>
 	</Rule>
 </Style>
