@@ -10,6 +10,7 @@ psql gis < arealabel.sql
 ./update_lowzoom.sh
 ./update_saddles.sh
 ./update_isolations.sh
+./update_parking.sh
 
 psql gis < stationdirection.sql
 psql gis < viewpointdirection.sql
