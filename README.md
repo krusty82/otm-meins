@@ -11,20 +11,9 @@ https://github.com/der-stefan/OpenTopoMap
 
 A multi processor server with at least 16 GB RAM and a lot of HD space.
 
-A full worldwide server needs about 3 TB of HD to host all tiles up to zoom level 17.
+A full worldwide server needs about 1 TB of SSD for the database and at least 1 TB for some prerendered tiles.
 
 You need `docker` and `docker-compose` to run this image.
-
-
-## NOTE
-
-You don't need this repo locally if you use the prepared Docker Image:
-
-`jhassler/otm-docker:latest`
-
-You can find this image on Dockerhub: https://hub.docker.com/jhassler/otm-docker
-
-You only need this repo if you want to build your own image variant. See below: Build your own image.
 
 
 ## Setup your Opentopomap server
@@ -71,6 +60,7 @@ Download your PBF file and put it into your project `data/data` directory with t
 The script expects the data to have this name.
 
 Also put a poly-file into the folder named osm.poly. This is used to download the srtm data for the contour lines.
+You can find the poly-file on the geofabrik download server https://download.geofabrik.de/
 
 
 ### Step 3: Download elevation data
@@ -88,15 +78,11 @@ The files should be in HGT format compressed as **ZIP** files. The files will be
 
 Make sure the SRTM data covers the region you chose in step 2.
 
-Easiest way: For worldwide SRTM data use:
+Easiest way: 
 
-```
-http://viewfinderpanoramas.org/dem3/M31.zip
-http://viewfinderpanoramas.org/dem3/M32.zip
-http://viewfinderpanoramas.org/dem3/M33.zip
-http://viewfinderpanoramas.org/dem3/L31.zip
-http://viewfinderpanoramas.org/dem3/L32.zip
-```
+Put polyfile from your region of interest in the /mnt/data folder and let pyhgtmap download the srtm data
+
+
 
 
 ### Step 4: Check your data & start the container!
@@ -106,8 +92,9 @@ Your directory structure should look something like this:
 ```
 docker-compose.yml
 data/data/osmdata.pbf
-data/data/srtm/some-zip-file1.zip
-data/data/srtm/some-zip-file2.zip
+data/data/osmdata.poly
+(data/data/srtm/some-zip-file1.zip)
+(data/data/srtm/some-zip-file2.zip)
 data/db
 data/letsencrypt
 ```
@@ -147,15 +134,16 @@ cd /scripts
 sh 00_setup_database.sh
 sh 01_download_water_polys.sh
 sh 02_import_osm_data.sh
-sh 03_dem_hillshade.sh
+sh 03a_dem_contours1.sh
+sh 03b_dem_hillshade.sh
 sh 04_preprocess_osm_data.sh
-sh 05_dem_contours1.sh
+
 sh 06_dem_contours2.sh
 ```
 
 Step 2 (import OSM data) takes the most time, depending on the size of your PBF file. A full planet can even take DAYS to import.
 
-Step 5 (generating the contours data) can also take a long time and needs a lot of RAM, min. 16 GB for the world SRTM. If you get a 
+Step 3 (generating the contours data) can also take a long time and needs a lot of RAM, min. 16 GB for the world SRTM. If you get a 
 memory fault when executing, then try it with lower resolution or on a box with more RAM.
 
 
@@ -164,8 +152,8 @@ memory fault when executing, then try it with lower resolution or on a box with 
 Once everything has run through, you log out and restart your container:
 
 ```
-docker-compose down
-docker-compose up -d
+docker restart *containernme*
+
 ```
 
 
