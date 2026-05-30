@@ -57,6 +57,10 @@ CREATE INDEX IF NOT EXISTS idx_polygon_nature_reserve
 
 CREATE INDEX IF NOT EXISTS idx_line_power
   ON planet_osm_line (power);  
-
 CREATE INDEX IF NOT EXISTS idx_point_power
   ON planet_osm_point (power);  
+
+CREATE INDEX planet_osm_polygon_islands_way_idx
+ON planet_osm_polygon
+USING GIST (way)
+WHERE place IN ('island', 'islet');
