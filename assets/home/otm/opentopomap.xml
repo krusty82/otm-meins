@@ -278,7 +278,7 @@
     <Layer name="landuse-over-water">
         <StyleName>landuse-over-water</StyleName>
         <Datasource>
-            <Parameter name="table">landuse_over_water
+            <Parameter name="table">(SELECT way, "natural", wetland FROM planet_osm_polygon WHERE ("natural" IN ('wetland','beach')) OR (wetland IS NOT NULL)) as landuse
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
@@ -345,7 +345,7 @@
     <Layer name="areas">
         <StyleName>areas</StyleName>
         <Datasource>
-            <Parameter name="table">areas
+            <Parameter name="table">(SELECT way,landuse,leisure,way_area FROM planet_osm_polygon WHERE (landuse = 'military') OR (leisure = 'nature_reserve')) as areas
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
@@ -464,7 +464,7 @@
             &postgis-settings;
         </Datasource>
     </Layer>
-    <Layer name="symbols-road" clear-label-cache="on">
+    <Layer name="symbols-road-point" clear-label-cache="on">
         <StyleName>symbols-road</StyleName>
         <Datasource>
             <Parameter name="table">(SELECT way,name,highway,amenity,fee,access FROM planet_osm_point WHERE (highway = 'bus_stop') OR (amenity = 'parking')) AS symbols
@@ -473,7 +473,16 @@
             &postgis-settings;
         </Datasource>
     </Layer>
-
+    <Layer name="symbols-road" clear-label-cache="on">
+        <StyleName>symbols-road</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,name,highway,amenity,fee,access FROM planet_osm_polygon WHERE (amenity = 'parking')) AS symbols
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+    
 <Layer name="ferry-routes">
     <StyleName>ferry-routes</StyleName>
     <Datasource>
@@ -502,11 +511,11 @@
     <StyleName>text-islands-lowzoom</StyleName>
     <Datasource>
         <Parameter name="table">
-			(SELECT way,name,place,way_area FROM islands) AS islands
+			(SELECT way,name,place,way_area FROM planet_osm_polygon where place in ('island','islet')) AS islands
         </Parameter>
         <Parameter name="geometry_field">way</Parameter>
         <Parameter name="srid">3857</Parameter>
-        <Parameter name="dbname">lowzoom</Parameter>
+        <Parameter name="dbname">gis</Parameter>
         &postgis-settings;
     </Datasource>
 
@@ -684,7 +693,7 @@
         <StyleName>symbols-peaks</StyleName>
         <StyleName>text-peaks</StyleName>
         <Datasource>
-            <Parameter name="table">(SELECT way,"natural",get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele,"summit:cross",otm_isolation::INTEGER FROM planet_osm_point WHERE ("natural" IN ('peak','volcano') ORDER BY otm_isolation::INTEGER DESC) AS symbols
+            <Parameter name="table">(SELECT way,"natural",get_localized_placename(name,"name:de",int_name,"name:en",true) as name,ele,"summit:cross",otm_isolation::INTEGER FROM planet_osm_point WHERE ("natural" IN ('peak','volcano')) ORDER BY otm_isolation::INTEGER DESC) AS symbols
             </Parameter>
             <Parameter name="dbname">gis</Parameter>
             &postgis-settings;
@@ -702,7 +711,7 @@
    	 </Datasource>
      </Layer>
 
-    <Layer name="symbols-poly">
+    <Layer name="symbols-poly"  cache-features="on">
         <StyleName>symbols-1</StyleName>
         <StyleName>symbols-2</StyleName>
         <StyleName>symbols-poly</StyleName>
@@ -718,7 +727,7 @@
         </Datasource>
     </Layer>
 
-    <Layer name="symbols-point">
+    <Layer name="symbols-point"  cache-features="on">
         <StyleName>symbols-1</StyleName>
         <StyleName>symbols-2</StyleName>
         <StyleName>symbols-point</StyleName>
@@ -838,7 +847,7 @@
         </Datasource>
     </Layer>
 
-    <Layer name="text-cities" clear-label-cache="on">
+    <Layer name="text-cities" clear-label-cache="on" cache-features="on">
         <StyleName>text-cities</StyleName>
         <StyleName>text-towns</StyleName>
         <StyleName>text-villages</StyleName>
