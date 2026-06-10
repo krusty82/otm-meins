@@ -99,7 +99,6 @@
 <Map background-color="#e0e0e0" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over" buffer-size="256">
     <!-- style definitions -->
     &fontset-settings;
-
     &landuse-lowzoom;
     &landuse;
     &landuse-over-hillshade;
@@ -174,7 +173,7 @@
     &symbols-viewpoint;
     &text-roads-ref;
     &text-waterways;
-	&text-countries-lowzoom;
+    &text-countries-lowzoom;
     &test;
 
 
@@ -203,8 +202,8 @@
             &postgis-settings;
         </Datasource>
     </Layer>
-	&glaciers;
-	&hillshade;
+&glaciers;
+&hillshade;
 
     <Layer name="landuse-over-hillshade">
         <StyleName>landuse-over-hillshade</StyleName>
@@ -229,7 +228,7 @@
         </Datasource>
     </Layer>
 	
-    &basemap-sea;
+&basemap-sea;
 
     <Layer name="road-areas">
         <StyleName>road-areas</StyleName>
@@ -464,24 +463,6 @@
             &postgis-settings;
         </Datasource>
     </Layer>
-    <Layer name="symbols-road-point" clear-label-cache="on">
-        <StyleName>symbols-road</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,name,highway,amenity,fee,access FROM planet_osm_point WHERE (highway = 'bus_stop') OR (amenity = 'parking')) AS symbols
-            </Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
-    <Layer name="symbols-road" clear-label-cache="on">
-        <StyleName>symbols-road</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,name,highway,amenity,fee,access FROM planet_osm_polygon WHERE (amenity = 'parking')) AS symbols
-            </Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
     
 <Layer name="ferry-routes">
     <StyleName>ferry-routes</StyleName>
@@ -700,6 +681,60 @@
         </Datasource>
     </Layer>
 
+    <Layer name="road-names-text">
+        <StyleName>road-names-text</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,ST_Length(way) AS length,highway,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,service,surface,tracktype,lanes,embankment,oneway FROM
+                planet_osm_line WHERE (!scale_denominator! &gt; 300000) OR ((bridge IS NULL OR bridge = 'no') AND (tunnel IS NULL OR tunnel != 'yes'))
+                AND ((highway IS NOT NULL AND highway!='construction') OR (leisure='track' AND sport='bobsleigh') OR attraction='summer_toboggan') ORDER BY (CASE WHEN highway IN
+                ('motorway','trunk') THEN 5 WHEN highway='primary' THEN 1 WHEN highway='secondary' THEN 2 WHEN highway='tertiary' THEN 3 ELSE 4 END)
+                DESC ) AS roads
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+
+    <Layer name="building-housenumbers-polygons">
+        <StyleName>housenumbers-poly</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,"addr:housenumber",name,building,way_area FROM planet_osm_polygon WHERE building IS NOT NULL) AS
+                housenumbers
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+    <Layer name="building-housenumbers-points">
+        <StyleName>housenumbers-point</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,"addr:housenumber",name,building FROM planet_osm_point WHERE "addr:housenumber" IS NOT NULL) AS
+                housenumbers
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+
+    <Layer name="symbols-road-point" clear-label-cache="on">
+        <StyleName>symbols-road</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,name,highway,amenity,fee,access FROM planet_osm_point WHERE (highway = 'bus_stop') OR (amenity = 'parking')) AS symbols
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+    <Layer name="symbols-road" clear-label-cache="on">
+        <StyleName>symbols-road</StyleName>
+        <Datasource>
+            <Parameter name="table">(SELECT way,name,highway,amenity,fee,access FROM planet_osm_polygon WHERE (amenity = 'parking')) AS symbols
+            </Parameter>
+            <Parameter name="dbname">gis</Parameter>
+            &postgis-settings;
+        </Datasource>
+    </Layer>
+
     <Layer name="symbols-saddle">
     	<StyleName>symbols-saddle</StyleName>
     	<Datasource>
@@ -775,40 +810,6 @@
         </Datasource>
     </Layer>
 
-    <Layer name="road-names-text">
-        <StyleName>road-names-text</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,ST_Length(way) AS length,highway,get_localized_placename(name,"name:de",int_name,"name:en",true) as name,service,surface,tracktype,lanes,embankment,oneway FROM
-                planet_osm_line WHERE (!scale_denominator! &gt; 300000) OR ((bridge IS NULL OR bridge = 'no') AND (tunnel IS NULL OR tunnel != 'yes'))
-                AND ((highway IS NOT NULL AND highway!='construction') OR (leisure='track' AND sport='bobsleigh') OR attraction='summer_toboggan') ORDER BY (CASE WHEN highway IN
-                ('motorway','trunk') THEN 5 WHEN highway='primary' THEN 1 WHEN highway='secondary' THEN 2 WHEN highway='tertiary' THEN 3 ELSE 4 END)
-                DESC ) AS roads
-            </Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
-
-    <Layer name="building-housenumbers-polygons">
-        <StyleName>housenumbers-poly</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,"addr:housenumber",name,building,way_area FROM planet_osm_polygon WHERE building IS NOT NULL) AS
-                housenumbers
-            </Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
-    <Layer name="building-housenumbers-points">
-        <StyleName>housenumbers-point</StyleName>
-        <Datasource>
-            <Parameter name="table">(SELECT way,"addr:housenumber",name,building FROM planet_osm_point WHERE "addr:housenumber" IS NOT NULL) AS
-                housenumbers
-            </Parameter>
-            <Parameter name="dbname">gis</Parameter>
-            &postgis-settings;
-        </Datasource>
-    </Layer>
 
     <Layer name="text-roads-ref">
         <StyleName>text-roads-ref</StyleName>

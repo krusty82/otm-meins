@@ -17,8 +17,8 @@ CREATE INDEX IF NOT EXISTS idx_polygon_name
 ON planet_osm_polygon(name);
 
 -- Natural
-CREATE INDEX IF NOT EXISTS idx_polygon_natural
-ON planet_osm_polygon("natural");
+CREATE INDEX IF NOT EXISTS planet_osm_polygon_nat_region_idx
+ON planet_osm_polygon ("natural");
 
 -- Glacier
 CREATE INDEX IF NOT EXISTS idx_polygon_glacier
